@@ -75,6 +75,8 @@
   }
   a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
   a:hover { color: var(--accent-ink); }
+  .org-link { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .org-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
   .wrap { width: min(1120px, 100% - 3rem); margin-inline: auto; }
@@ -157,7 +159,7 @@
   .facts .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 0.25rem; }
   .facts .v { color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
   .facts a { text-decoration: none; }
-  .facts a:hover { text-decoration: underline; }
+  .facts a:not(.org-link):hover { text-decoration: underline; }
 
   /* ---------- Abschnitte ---------- */
   .section { padding: clamp(3rem, 7vw, 5.5rem) 0; border-bottom: 1px solid var(--line); }
@@ -253,15 +255,15 @@
       <div>
         <p class="eyebrow">Düsseldorf, Nordrhein-Westfalen</p>
         <h1>Malte Brunotte</h1>
-        <p class="role"><strong>Geschäftsführender Gesellschafter</strong> der Grunwald GmbH</p>
+        <p class="role"><strong>Geschäftsführender Gesellschafter</strong> der <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a></p>
         <p class="intro">
           Unternehmer mit Fokus auf Vertriebs- und Business-Development. Seit 2010 Inhaber der
-          Grunwald GmbH. Zuvor Führungsrollen im Vertrieb und Produktmanagement sowie
+          <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>. Zuvor Führungsrollen im Vertrieb und Produktmanagement sowie
           Mitgründer eines e-Commerce Unternehmens.
         </p>
       </div>
       <ul class="facts" aria-label="Kurzprofil">
-        <li><span class="k">Aktuell</span><span class="v">Grunwald GmbH, seit Januar 2010</span></li>
+        <li><span class="k">Aktuell</span><span class="v"><a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>, seit Januar 2010</span></li>
         <li><span class="k">Fokus</span><span class="v">Business Development, Social-Media-Marketing, Unternehmertum</span></li>
         <li><span class="k">Studium</span><span class="v">Executive MBA · Bauingenieurwesen (RWTH Aachen)</span></li>
         <li><span class="k">E-Mail</span><span class="v">info[at]brunotte.de</span></li>
@@ -282,7 +284,7 @@
           <div class="years"><span class="now">Seit Jan. 2010</span><span class="dur">16 Jahre 9 Monate</span></div>
           <div class="entry">
             <h3>Geschäftsführender Gesellschafter</h3>
-            <p class="org">Grunwald GmbH <span class="place">· Düsseldorf</span></p>
+            <p class="org"><a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a> <span class="place">· Düsseldorf</span></p>
           </div>
         </li>
         <li>
