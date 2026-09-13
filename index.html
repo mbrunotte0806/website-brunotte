@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Malte Brunotte</title>
+<meta name="description" content="Malte Brunotte – Geschäftsführender Gesellschafter der Grunwald GmbH, Düsseldorf. Unternehmer, Business Development, Vertrieb.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@500;600;700&display=swap">
+<style>
+  /* ---------- Farb- und Schrift-Token ---------- */
+  :root {
+    --bg: #f6f8f7;
+    --surface: #ffffff;
+    --ink: #14201f;
+    --ink-soft: #3f4f4d;
+    --muted: #6b7a78;
+    --line: #d9e0de;
+    --line-strong: #b9c5c2;
+    --accent: #0f5f63;
+    --accent-soft: #e2efee;
+    --accent-ink: #0b4a4d;
+
+    --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --font-name: "Manrope", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+
+    --measure: 62ch;
+    --radius: 6px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1716;
+      --surface: #162120;
+      --ink: #ecf1ef;
+      --ink-soft: #c3cdca;
+      --muted: #8fa09d;
+      --line: #263331;
+      --line-strong: #3a4a47;
+      --accent: #6fcac9;
+      --accent-soft: #163534;
+      --accent-ink: #9fe0df;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1716;
+    --surface: #162120;
+    --ink: #ecf1ef;
+    --ink-soft: #c3cdca;
+    --muted: #8fa09d;
+    --line: #263331;
+    --line-strong: #3a4a47;
+    --accent: #6fcac9;
+    --accent-soft: #163534;
+    --accent-ink: #9fe0df;
+    color-scheme: dark;
+  }
+
+  /* ---------- Grundlagen ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--accent-ink); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { width: min(1120px, 100% - 3rem); margin-inline: auto; }
+
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- Kopfzeile ---------- */
+  .site-header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem; height: 72px;
+  }
+  .brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; color: inherit; }
+
+  /* LOGO-PLATZHALTER
+     Später einfach den Inhalt von .logo durch
+     <img src="logo.svg" alt="Logo"> ersetzen und die Klasse
+     "logo-placeholder" entfernen. */
+  .logo {
+    width: 44px; height: 44px; flex: none;
+    display: grid; place-items: center;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .logo-placeholder {
+    border: 1.5px dashed var(--line-strong);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .brand-name { font-family: var(--font-name); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+
+  .site-nav { display: flex; gap: 1.75rem; }
+  .site-nav a {
+    color: var(--ink-soft); text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    padding: 0.25rem 0; border-bottom: 1.5px solid transparent;
+  }
+  .site-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  @media (max-width: 640px) { .site-nav { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.5rem, 6vw, 4.5rem); border-bottom: 1px solid var(--line); }
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem); align-items: end;
+  }
+  @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; align-items: start; } }
+  .hero h1 {
+    font-family: var(--font-name);
+    font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin-top: 1rem;
+  }
+  .hero .role {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    font-weight: 400;
+    color: var(--ink-soft);
+    line-height: 1.3;
+  }
+  .hero .role strong { font-weight: 600; color: var(--ink); }
+  .hero .intro { max-width: var(--measure); margin-top: 1.5rem; font-size: 1.125rem; color: var(--ink-soft); }
+
+  .facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .facts li {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.85rem 0; border-bottom: 1px solid var(--line);
+    font-size: 0.98rem;
+  }
+  .facts .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 0.25rem; }
+  .facts .v { color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .facts a { text-decoration: none; }
+  .facts a:hover { text-decoration: underline; }
+
+  /* ---------- Abschnitte ---------- */
+  .section { padding: clamp(3rem, 7vw, 5.5rem) 0; border-bottom: 1px solid var(--line); }
+  .section:last-of-type { border-bottom: 0; }
+  .section-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+  @media (max-width: 800px) { .section-grid { grid-template-columns: 1fr; } }
+  .section h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; margin-top: 0.4rem; }
+  .section-lead { color: var(--muted); max-width: 30ch; margin-top: 0.75rem; font-size: 0.98rem; }
+
+  /* Berufsweg als Zeitleiste – die Reihenfolge trägt die Information */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline > li {
+    display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.5rem;
+    padding: 1.35rem 0; border-top: 1px solid var(--line);
+  }
+  .timeline > li:last-child { border-bottom: 1px solid var(--line); }
+  @media (max-width: 560px) { .timeline > li { grid-template-columns: 1fr; gap: 0.35rem; } }
+  .years {
+    font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);
+    font-variant-numeric: tabular-nums; padding-top: 0.35rem; line-height: 1.5;
+  }
+  .years .now { color: var(--accent); font-weight: 500; }
+  .years .dur { display: block; color: var(--muted); opacity: 0.85; }
+  .entry h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
+  .entry .org { color: var(--ink-soft); font-weight: 500; margin-top: 0.15rem; }
+  .entry .place { color: var(--muted); font-size: 0.95rem; font-weight: 400; }
+  .entry .sub { list-style: none; margin: 0.9rem 0 0; padding: 0; }
+  .entry .sub li { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 0.3rem 0; }
+  .entry .sub .years { padding-top: 0.15rem; }
+  .entry .sub h4 { margin: 0; font-family: var(--font-body); font-weight: 600; font-size: 1.02rem; }
+  @media (max-width: 560px) { .entry .sub li { grid-template-columns: 1fr; gap: 0; } }
+
+  /* Ausbildung, Kenntnisse */
+  .edu { padding: 1.25rem 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.5rem; }
+  .edu:last-child { border-bottom: 1px solid var(--line); }
+  @media (max-width: 560px) { .edu { grid-template-columns: 1fr; gap: 0.35rem; } }
+  .edu h3 { font-size: 1.15rem; font-weight: 600; }
+  .edu p { margin: 0.2rem 0 0; color: var(--ink-soft); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+  .chips li {
+    padding: 0.45rem 0.9rem; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent-ink);
+    font-weight: 500; font-size: 0.95rem;
+  }
+  .cert {
+    margin-top: 1.75rem; padding: 1.1rem 1.25rem;
+    border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+    display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start;
+  }
+  .cert svg { width: 26px; height: 26px; color: var(--accent); margin-top: 0.15rem; }
+  .cert h3 { font-size: 1.05rem; font-weight: 600; font-family: var(--font-body); }
+  .cert p { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
+  /* Kontakt */
+  .contact-list { list-style: none; margin: 0; padding: 0; }
+  .contact-list li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.5rem; padding: 0.9rem 0; border-top: 1px solid var(--line); }
+  .contact-list li:last-child { border-bottom: 1px solid var(--line); }
+  @media (max-width: 560px) { .contact-list li { grid-template-columns: 1fr; gap: 0.2rem; } }
+  .contact-list .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 0.3rem; }
+  .contact-list a, .contact-list .v { font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; text-decoration: none; overflow-wrap: anywhere; }
+  .contact-list a:hover { text-decoration: underline; }
+
+  /* Fußzeile */
+  .site-footer { border-top: 1px solid var(--line); padding: 1.5rem 0 2rem; color: var(--muted); font-size: 0.9rem; }
+  .site-footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .site-footer a { color: inherit; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Zur Startseite">
+      <!-- LOGO-PLATZHALTER: hier später <img src="logo.svg" alt="Logo"> einsetzen -->
+      <span class="logo logo-placeholder" role="img" aria-label="Logo-Platzhalter">Logo</span>
+      <span class="brand-name">Malte Brunotte</span>
+    </a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <a href="#berufsweg">Berufsweg</a>
+      <a href="#ausbildung">Ausbildung</a>
+      <a href="#kenntnisse">Kenntnisse</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Düsseldorf, Nordrhein-Westfalen</p>
+        <h1>Malte Brunotte</h1>
+        <p class="role"><strong>Geschäftsführender Gesellschafter</strong> der Grunwald GmbH</p>
+        <p class="intro">
+          Unternehmer mit Fokus auf Vertriebs- und Business-Development. Seit 2010 Inhaber der
+          Grunwald GmbH. Zuvor Führungsrollen im Vertrieb und Produktmanagement sowie
+          Mitgründer eines e-Commerce Unternehmens.
+        </p>
+      </div>
+      <ul class="facts" aria-label="Kurzprofil">
+        <li><span class="k">Aktuell</span><span class="v">Grunwald GmbH, seit Januar 2010</span></li>
+        <li><span class="k">Fokus</span><span class="v">Business Development, Social-Media-Marketing, Unternehmertum</span></li>
+        <li><span class="k">Studium</span><span class="v">Executive MBA · Bauingenieurwesen (RWTH Aachen)</span></li>
+        <li><span class="k">E-Mail</span><span class="v">info[at]brunotte.de</span></li>
+        <li><span class="k">LinkedIn</span><span class="v"><a href="https://www.linkedin.com/in/maltebrunotte/" rel="me noopener" target="_blank">linkedin.com/in/maltebrunotte</a></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="berufsweg">
+    <div class="wrap section-grid">
+      <div>
+        <p class="eyebrow">Berufserfahrung</p>
+        <h2>Berufsweg</h2>
+        <p class="section-lead">Von der e-Commerce Gründung über sechs Jahre Telko bis zum eigenen Familienunternehmen.</p>
+      </div>
+      <ol class="timeline" reversed>
+        <li>
+          <div class="years"><span class="now">Seit Jan. 2010</span><span class="dur">16 Jahre 9 Monate</span></div>
+          <div class="entry">
+            <h3>Geschäftsführender Gesellschafter</h3>
+            <p class="org">Grunwald GmbH <span class="place">· Düsseldorf</span></p>
+          </div>
+        </li>
+        <li>
+          <div class="years">2008 – 2009<span class="dur">1 Jahr</span></div>
+          <div class="entry">
+            <h3>Vice President Sales</h3>
+            <p class="org">OnePhone Deutschland GmbH</p>
+          </div>
+        </li>
+        <li>
+          <div class="years">2002 – 2008<span class="dur">6 Jahre</span></div>
+          <div class="entry">
+            <h3>Vodafone Business</h3>
+            <ul class="sub">
+              <li><span class="years">2005 – 2008</span><h4>Head of IT-Channel</h4></li>
+              <li><span class="years">2002 – 2005</span><h4>Senior Product Manager</h4></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="years">1999 – 2002<span class="dur">3 Jahre</span></div>
+          <div class="entry">
+            <h3>Co-Founder &amp; COO</h3>
+            <p class="org">abea AG</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="ausbildung">
+    <div class="wrap section-grid">
+      <div>
+        <p class="eyebrow">Studium</p>
+        <h2>Ausbildung</h2>
+        <p class="section-lead">Ingenieurwissenschaftliche Basis, betriebswirtschaftlich vertieft.</p>
+      </div>
+      <div>
+        <div class="edu">
+          <div class="years">2004 – 2005</div>
+          <div>
+            <h3>Master of Business Administration (MBA)</h3>
+            <p>Executive MBA General &amp; Financial Management · HZ University of Applied Sciences</p>
+          </div>
+        </div>
+        <div class="edu">
+          <div class="years">1993 – 1998</div>
+          <div>
+            <h3>Bauingenieurwesen</h3>
+            <p>RWTH Aachen University</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="kenntnisse">
+    <div class="wrap section-grid">
+      <div>
+        <p class="eyebrow">Schwerpunkte</p>
+        <h2>Kenntnisse &amp; Zertifikate</h2>
+      </div>
+      <div>
+        <ul class="chips" aria-label="Top-Kenntnisse">
+          <li>Business Development</li>
+          <li>Social-Media-Marketing</li>
+          <li>Unternehmertum</li>
+          <li>KI-Expertise</li>
+        </ul>
+        <div class="cert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="9" r="5.5"/>
+            <path d="M8.5 13.5 7 21l5-2.5 5 2.5-1.5-7.5"/>
+          </svg>
+          <div>
+            <h3>Nachweis zur KI-Kompetenz (EU AI Act)</h3>
+            <p>Zertifikat · Synnous</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="kontakt">
+    <div class="wrap section-grid">
+      <div>
+        <p class="eyebrow">Kontakt</p>
+        <h2>Schreiben Sie mir</h2>
+        <p class="section-lead">Für Anfragen zu Grunwald, Kooperationen oder einen Austausch.</p>
+      </div>
+      <ul class="contact-list">
+        <li><span class="k">E-Mail</span><span class="v">info[at]brunotte.de</span></li>
+        <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/maltebrunotte/" rel="me noopener" target="_blank">linkedin.com/in/maltebrunotte</a></li>
+        <li><span class="k">Standort</span><a href="https://www.google.com/maps/place/D%C3%BCsseldorf" rel="noopener" target="_blank">Düsseldorf, Nordrhein-Westfalen</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Malte Brunotte</span>
+    <span>info[at]brunotte.de</span>
+  </div>
+</footer>
+
+</body>
+</html>
