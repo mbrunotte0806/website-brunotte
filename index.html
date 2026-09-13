@@ -102,26 +102,17 @@
   }
   .brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; color: inherit; }
 
-  /* LOGO-PLATZHALTER
-     Später einfach den Inhalt von .logo durch
-     <img src="logo.svg" alt="Logo"> ersetzen und die Klasse
-     "logo-placeholder" entfernen. */
+  /* LOGO: logo.png hat weißen Hintergrund – im hellen Modus per multiply
+     ausgeblendet, im dunklen Modus invertiert und per screen ausgeblendet. */
   .logo {
-    width: 44px; height: 44px; flex: none;
-    display: grid; place-items: center;
-    border-radius: var(--radius);
-    overflow: hidden;
+    height: 40px; width: auto; display: block;
+    mix-blend-mode: multiply;
   }
-  .logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
-  .logo-placeholder {
-    border: 1.5px dashed var(--line-strong);
-    color: var(--muted);
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .logo { filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
   }
-  .brand-name { font-family: var(--font-name); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+  :root[data-theme="dark"] .logo { filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
+  :root[data-theme="light"] .logo { filter: none; mix-blend-mode: multiply; }
 
   .site-nav { display: flex; gap: 1.75rem; }
   .site-nav a {
@@ -244,9 +235,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Zur Startseite">
-      <!-- LOGO-PLATZHALTER: hier später <img src="logo.svg" alt="Logo"> einsetzen -->
-      <span class="logo logo-placeholder" role="img" aria-label="Logo-Platzhalter">Logo</span>
-      <span class="brand-name">Malte Brunotte</span>
+      <img class="logo" src="logo.png" alt="brunotte.de" width="800" height="192">
     </a>
     <nav class="site-nav" aria-label="Hauptnavigation">
       <a href="#berufsweg">Berufsweg</a>
