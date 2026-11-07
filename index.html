@@ -151,7 +151,10 @@
     border: 1px solid var(--ink); border-radius: 999px; padding: 0.5rem 1.15rem;
     color: var(--ink);
   }
-  .site-nav .cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  /* Wie die Wortmarke: Beim Überfahren wechselt der Knopf auf Grün,
+     beim Drücken auf den dunkleren Grünton. */
+  .site-nav .cta:hover { color: var(--accent); border-color: var(--accent); }
+  .site-nav .cta:active { color: var(--accent-ink); border-color: var(--accent-ink); }
   @media (max-width: 720px) { .site-nav a:not(.cta) { display: none; } }
 
   /* ---------- Dunkles Band ---------- */
