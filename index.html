@@ -114,6 +114,10 @@
   .org-link { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line-strong); transition: color .15s, border-color .15s; }
   .org-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
+  /* E-Mail-Links sollen wie Text aussehen, nicht wie Akzent-Links */
+  a.mail { color: inherit; text-decoration: none; transition: color .15s; }
+  a.mail:hover, .hero-facts a.mail:hover, .contact-list a.mail:hover { color: var(--accent); }
+
   /* ---------- Kopfzeile ---------- */
   .site-header {
     position: sticky; top: 0; z-index: 20;
@@ -398,7 +402,7 @@
         </div>
         <div>
           <span class="label">Kontakt</span>
-          <span class="v">info[at]brunotte.de</span>
+          <span class="v mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span>
         </div>
       </div>
     </div>
@@ -552,7 +556,7 @@
       </p>
     </div>
     <ul class="contact-list">
-      <li><span class="k">E-Mail</span><span class="v">info[at]brunotte.de</span></li>
+      <li><span class="k">E-Mail</span><span class="v mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span></li>
       <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/maltebrunotte/" rel="me noopener" target="_blank">linkedin.com/in/maltebrunotte</a></li>
       <li><span class="k">Standort</span><span class="v">Düsseldorf, Nordrhein-Westfalen</span></li>
     </ul>
@@ -562,9 +566,25 @@
 <footer class="site-footer">
   <div class="wrap">
     <span>© 2026 Malte Brunotte</span>
-    <span>info[at]brunotte.de</span>
+    <span class="mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span>
   </div>
 </footer>
+
+<script>
+  /* Die E-Mail-Adresse steht nirgends vollständig im Quelltext, sondern wird
+     erst im Browser aus Benutzer und Domain zusammengesetzt. Einfache
+     Adress-Sammler lesen nur den Quelltext und finden dort nichts Brauchbares.
+     Ohne JavaScript bleibt die lesbare Schreibweise "info [at] brunotte.de". */
+  document.querySelectorAll('span.mail').forEach(function (el) {
+    var addr = el.dataset.u + String.fromCharCode(64) + el.dataset.d;
+    var a = document.createElement('a');
+    a.className = el.className;
+    a.href = 'mail' + 'to:' + addr;
+    a.textContent = addr;
+    a.rel = 'nofollow';
+    el.replaceWith(a);
+  });
+</script>
 
 </body>
 </html>
