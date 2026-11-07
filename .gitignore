@@ -1,2 +1,8 @@
 .vercel
 .env*
+
+# Arbeitsdateien, nicht veroeffentlichen
+mb.jpg
+redesign.html
+redesign-dunkel.html
+logo.png

@@ -4,392 +4,560 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Malte Brunotte</title>
-<meta name="description" content="Malte Brunotte – Geschäftsführender Gesellschafter der Grunwald GmbH, Düsseldorf. Unternehmer, Business Development, Vertrieb.">
+<meta name="description" content="Malte Brunotte – Geschäftsführender Gesellschafter der Grunwald GmbH, Düsseldorf. Unternehmer, Business Development, Energetische Sanierung, Künstliche Intelligenz.">
 <link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<meta name="theme-color" content="#f6f8f7">
+<meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap">
 <style>
-  /* ---------- Farb- und Schrift-Token ---------- */
+  /* ============================================================
+     ENTWURF Re-Design
+     Farbe   · aus dem Logo: Navy #171C28 + Blau #2C6BF2
+     Schrift · EINE Grotesk für alles, durchgehend Regular,
+               enge Zeilen, keine Versallabels, keine Dekoration
+               (Anlehnung an studiocaspar.com / Messina Sans)
+     ============================================================ */
   :root {
-    --bg: #f6f8f7;
-    --surface: #ffffff;
-    --ink: #14201f;
-    --ink-soft: #3f4f4d;
-    --muted: #6b7a78;
-    --line: #d9e0de;
-    --line-strong: #b9c5c2;
-    --accent: #0f5f63;
-    --accent-soft: #e2efee;
-    --accent-ink: #0b4a4d;
+    /* Fläche.
+       Die Schrift ist kein Schwarz, sondern ein tiefes Navy aus dem Logo.
+       Alternativen für --ink:  #171c28 (dezenter)  ·  #102449 (kräftiger) */
+    --paper:         #ffffff;
+    --surface:       #f4f5f8;
+    --surface-hover: #edeff4;
+    --ink:           #13203c;
+    --ink-soft:      #3c4b68;
+    --muted:         #727f98;
+    --line:          #e4e6ec;
+    --line-strong:   #c2c7d4;
+    /* Akzent */
+    --accent:       #2c6bf2;
+    --accent-ink:   #1b4fc4;
+    --accent-soft:  #e8eefd;
+    --on-accent:    #ffffff;
 
-    --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
-    --font-name: "Manrope", "Segoe UI", system-ui, sans-serif;
-    --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
-    --font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+    /* Eine Schrift für die ganze Seite.
+       Austauschbar: "Inter", "Instrument Sans", "Schibsted Grotesk" */
+    --font: "Hanken Grotesk", -apple-system, "Segoe UI", system-ui, sans-serif;
 
-    --measure: 62ch;
-    --radius: 6px;
+    --radius: 10px;
+    --measure: 56ch;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0f1716;
-      --surface: #162120;
-      --ink: #ecf1ef;
-      --ink-soft: #c3cdca;
-      --muted: #8fa09d;
-      --line: #263331;
-      --line-strong: #3a4a47;
-      --accent: #6fcac9;
-      --accent-soft: #163534;
-      --accent-ink: #9fe0df;
+      --paper:         #0e1118;
+      --surface:       #161b25;
+      --surface-hover: #1b212c;
+      --ink:           #eceef3;
+      --ink-soft:      #bfc6d2;
+      --muted:         #8a93a3;
+      --line:          #232b37;
+      --line-strong:   #343d4d;
+      --accent:        #5b8dff;
+      --accent-ink:   #8baeff;
+      --accent-soft:  #16223a;
+      --on-accent:    #0b0e14;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0f1716;
-    --surface: #162120;
-    --ink: #ecf1ef;
-    --ink-soft: #c3cdca;
-    --muted: #8fa09d;
-    --line: #263331;
-    --line-strong: #3a4a47;
-    --accent: #6fcac9;
-    --accent-soft: #163534;
-    --accent-ink: #9fe0df;
+    --paper:         #0e1118;
+    --surface:       #161b25;
+    --surface-hover: #1b212c;
+    --ink:           #eceef3;
+    --ink-soft:      #bfc6d2;
+    --muted:         #8a93a3;
+    --line:          #232b37;
+    --line-strong:   #343d4d;
+    --accent:        #5b8dff;
+    --accent-ink:   #8baeff;
+    --accent-soft:  #16223a;
+    --on-accent:    #0b0e14;
     color-scheme: dark;
   }
 
   /* ---------- Grundlagen ---------- */
   *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
     margin: 0;
-    background: var(--bg);
+    background: var(--paper);
     color: var(--ink);
-    font-family: var(--font-body);
+    font-family: var(--font);
     font-size: 1.0625rem;
-    line-height: 1.6;
+    font-weight: 400;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  a:hover { color: var(--accent-ink); }
-  .org-link { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line-strong); }
-  .org-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-
-  .wrap { width: min(1120px, 100% - 3rem); margin-inline: auto; }
-
-  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
   p { margin: 0; }
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+  h1, h2, h3, h4 { margin: 0; font-weight: 400; text-wrap: balance; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent-ink); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  img { max-width: 100%; }
+
+  .wrap { width: min(1140px, 100% - 3rem); margin-inline: auto; }
+  .section[id], .contact[id] { scroll-margin-top: 86px; }
+
+  /* Label: kleine, ruhige Vorzeile – keine Versalien, keine Sperrung */
+  .label { font-size: 0.95rem; color: var(--muted); }
+
+  /* Zahlen laufen immer auf gleicher Breite */
+  .yrs, .num { font-variant-numeric: tabular-nums; }
+
+  .org-link { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line-strong); transition: color .15s, border-color .15s; }
+  .org-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
   /* ---------- Kopfzeile ---------- */
   .site-header {
-    position: sticky; top: 0; z-index: 10;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(8px);
+    position: sticky; top: 0; z-index: 20;
+    background: var(--paper);
     border-bottom: 1px solid var(--line);
   }
   .site-header .wrap {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 1.5rem; height: 72px;
+    gap: 1.5rem; height: 76px;
   }
-  .brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; color: inherit; }
-
-  /* LOGO: logo.png hat weißen Hintergrund – im hellen Modus per multiply
-     ausgeblendet, im dunklen Modus invertiert und per screen ausgeblendet. */
-  .logo {
-    height: 40px; width: auto; display: block;
-    mix-blend-mode: multiply;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .logo { filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
-  }
-  :root[data-theme="dark"] .logo { filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
-  :root[data-theme="light"] .logo { filter: none; mix-blend-mode: multiply; }
-
-  .site-nav { display: flex; gap: 1.75rem; }
-  .site-nav a {
-    color: var(--ink-soft); text-decoration: none; font-weight: 500; font-size: 0.95rem;
-    padding: 0.25rem 0; border-bottom: 1.5px solid transparent;
-  }
-  .site-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-  @media (max-width: 640px) { .site-nav { display: none; } }
-
-  /* ---------- Hero ---------- */
-  .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.5rem, 6vw, 4.5rem); border-bottom: 1px solid var(--line); }
-  .hero-grid {
-    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    gap: clamp(2rem, 5vw, 5rem); align-items: end;
-  }
-  @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; align-items: start; } }
-  .hero h1 {
-    font-family: var(--font-name);
-    font-size: clamp(2.6rem, 6.5vw, 4.6rem);
-    font-weight: 600;
-    line-height: 1.02;
+  /* Wortmarke – gesetzt in der Schrift der Seite, kein Bild */
+  .wordmark {
+    font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+    font-weight: 500;
     letter-spacing: -0.03em;
-    margin-top: 1rem;
+    line-height: 1;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color .15s;
   }
-  .hero .role {
-    margin-top: 1.25rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.15rem, 2vw, 1.4rem);
-    font-weight: 400;
-    color: var(--ink-soft);
-    line-height: 1.3;
-  }
-  .hero .role strong { font-weight: 600; color: var(--ink); }
-  .hero .intro { max-width: var(--measure); margin-top: 1.5rem; font-size: 1.125rem; color: var(--ink-soft); }
+  .wordmark:hover { color: var(--accent); }
 
-  .facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-  .facts li {
-    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
-    padding: 0.85rem 0; border-bottom: 1px solid var(--line);
-    font-size: 0.98rem;
+  .site-nav { display: flex; align-items: center; gap: 1.75rem; }
+  .site-nav a {
+    color: var(--ink-soft); text-decoration: none; font-size: 1rem;
+    padding: 0.3rem 0; border-bottom: 1px solid transparent;
+    transition: color .15s, border-color .15s;
   }
-  .facts .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 0.25rem; }
-  .facts .v { color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-  .facts a { text-decoration: none; }
-  .facts a:not(.org-link):hover { text-decoration: underline; }
+  .site-nav a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .site-nav .cta {
+    border: 1px solid var(--ink); border-radius: 999px; padding: 0.5rem 1.15rem;
+    color: var(--ink);
+  }
+  .site-nav .cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  @media (max-width: 720px) { .site-nav a:not(.cta) { display: none; } }
+
+  /* ---------- Dunkles Band ---------- */
+
+  /* ---------- Hero (hell) ---------- */
+  .hero { padding: clamp(3rem, 7vw, 5.5rem) 0 0; border-bottom: 1px solid var(--line); }
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
+  }
+  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } }
+
+  .hero h1 {
+    font-size: clamp(3rem, 8.5vw, 5.75rem);
+    line-height: 0.96;
+    letter-spacing: -0.028em;
+    margin-top: 0.9rem;
+    color: var(--ink);
+  }
+  /* Rollen stapeln sich eng unter dem Namen – wie in der Vorlage */
+  .hero .roles {
+    margin-top: 1.1rem;
+    font-size: clamp(1.1rem, 2.1vw, 1.45rem);
+    line-height: 1.25;
+    color: var(--muted);
+  }
+  .hero .roles strong { font-weight: 400; color: var(--ink); }
+  .hero .lead {
+    font-size: 1.1rem; line-height: 1.55; color: var(--ink-soft);
+    max-width: var(--measure); margin-top: 1.75rem;
+  }
+
+  /* Porträt */
+  .portrait {
+    position: relative; border-radius: var(--radius); overflow: hidden;
+    background: var(--surface);
+    box-shadow: 0 18px 44px -24px rgba(20, 23, 31, 0.35);
+  }
+  .portrait img {
+    width: 100%; height: 100%; display: block;
+    aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 42%;
+  }
+  @media (max-width: 860px) {
+    .portrait { max-width: 340px; }
+    .portrait img { aspect-ratio: 1 / 1; }
+  }
+
+  /* Faktenleiste */
+  .hero-facts {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  @media (max-width: 860px) { .hero-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 440px) { .hero-facts { grid-template-columns: 1fr; } }
+  .hero-facts > div {
+    padding: 1.35rem 1.5rem 1.6rem 0;
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .hero-facts > div + div { border-left: 1px solid var(--line); padding-left: 1.5rem; }
+  @media (max-width: 860px) {
+    .hero-facts > div:nth-child(3) { border-left: 0; padding-left: 0; }
+  }
+  @media (max-width: 440px) {
+    .hero-facts > div + div { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); }
+  }
+  .hero-facts .v { font-size: 1.05rem; line-height: 1.35; color: var(--ink); }
 
   /* ---------- Abschnitte ---------- */
-  .section { padding: clamp(3rem, 7vw, 5.5rem) 0; border-bottom: 1px solid var(--line); }
-  .section:last-of-type { border-bottom: 0; }
-  .section-grid {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
-    gap: clamp(1.5rem, 4vw, 4rem);
+  .section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+  .section + .section { border-top: 1px solid var(--line); }
+  .hero + .section { border-top: 0; }
+  .section-head { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .section-head h2 {
+    font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+    line-height: 1.02;
+    letter-spacing: -0.024em;
+    margin-top: 0.5rem;
   }
-  @media (max-width: 800px) { .section-grid { grid-template-columns: 1fr; } }
-  .section h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; margin-top: 0.4rem; }
-  .section-lead { color: var(--muted); max-width: 30ch; margin-top: 0.75rem; font-size: 0.98rem; }
+  .section-head .lead {
+    font-size: 1.1rem; line-height: 1.55; color: var(--ink-soft);
+    margin-top: 1rem; max-width: var(--measure);
+  }
 
-  /* Berufsweg als Zeitleiste – die Reihenfolge trägt die Information */
-  .timeline { list-style: none; margin: 0; padding: 0; }
-  .timeline > li {
-    display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.5rem;
-    padding: 1.35rem 0; border-top: 1px solid var(--line);
+  /* ---------- Berufsweg ---------- */
+  .scale-note {
+    font-size: 0.9rem; color: var(--muted);
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;
   }
-  .timeline > li:last-child { border-bottom: 1px solid var(--line); }
-  @media (max-width: 560px) { .timeline > li { grid-template-columns: 1fr; gap: 0.35rem; } }
-  .years {
-    font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);
-    font-variant-numeric: tabular-nums; padding-top: 0.35rem; line-height: 1.5;
-  }
-  .years .now { color: var(--accent); font-weight: 500; }
-  .years .dur { display: block; color: var(--muted); opacity: 0.85; }
-  .entry h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
-  .entry .org { color: var(--ink-soft); font-weight: 500; margin-top: 0.15rem; }
-  .entry .place { color: var(--muted); font-size: 0.95rem; font-weight: 400; }
-  .entry .sub { list-style: none; margin: 0.9rem 0 0; padding: 0; }
-  .entry .sub li { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 0.3rem 0; }
-  .entry .sub .years { padding-top: 0.15rem; }
-  .entry .sub h4 { margin: 0; font-family: var(--font-body); font-weight: 600; font-size: 1.02rem; }
-  @media (max-width: 560px) { .entry .sub li { grid-template-columns: 1fr; gap: 0; } }
+  .scale-note::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
-  /* Ausbildung, Kenntnisse */
-  .edu { padding: 1.25rem 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.5rem; }
-  .edu:last-child { border-bottom: 1px solid var(--line); }
-  @media (max-width: 560px) { .edu { grid-template-columns: 1fr; gap: 0.35rem; } }
-  .edu h3 { font-size: 1.15rem; font-weight: 600; }
-  .edu p { margin: 0.2rem 0 0; color: var(--ink-soft); }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
-  .chips li {
-    padding: 0.45rem 0.9rem; border-radius: 999px;
-    background: var(--accent-soft); color: var(--accent-ink);
-    font-weight: 500; font-size: 0.95rem;
+  .track { list-style: none; margin: 0; padding: 0; }
+  .track > li {
+    display: grid; grid-template-columns: 9rem minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(1rem, 3vw, 2.5rem); align-items: start;
+    padding: 1.5rem 0; border-top: 1px solid var(--line);
   }
-  .cert {
-    margin-top: 1.75rem; padding: 1.1rem 1.25rem;
-    border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
-    display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start;
+  .track > li:last-child { border-bottom: 1px solid var(--line); }
+  .track > li.current { background: linear-gradient(90deg, var(--accent-soft), transparent 70%); }
+  @media (max-width: 820px) {
+    .track > li { grid-template-columns: 1fr; gap: 0.5rem; }
   }
-  .cert svg { width: 26px; height: 26px; color: var(--accent); margin-top: 0.15rem; }
-  .cert h3 { font-size: 1.05rem; font-weight: 600; font-family: var(--font-body); }
-  .cert p { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
+  .yrs { font-size: 0.95rem; color: var(--muted); padding-top: 0.2rem; line-height: 1.45; }
+  .yrs .dur { display: block; }
+  .track .current .yrs .now { color: var(--accent); }
 
-  /* Kontakt */
+  .role-title { font-size: 1.3rem; line-height: 1.2; letter-spacing: -0.012em; }
+  .role-org { color: var(--ink-soft); margin-top: 0.3rem; }
+  .role-org .place { color: var(--muted); }
+  .role-sub { list-style: none; margin: 0.85rem 0 0; padding: 0; display: grid; gap: 0.3rem; }
+  .role-sub li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.9rem; }
+  .role-sub .yrs { padding-top: 0; }
+  .role-sub h4 { font-size: 1.05rem; color: var(--ink); }
+
+  /* Dauerbalken – gemeinsame Skala: volle Breite = 17 Jahre */
+  .bar-cell { padding-top: 0.5rem; }
+  @media (max-width: 820px) { .bar-cell { padding-top: 0.25rem; } }
+  .bar { height: 8px; border-radius: 999px; background: var(--line); position: relative; overflow: hidden; }
+  .bar > span { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: var(--line-strong); }
+  .current .bar > span { background: var(--accent); }
+  .bar-label { margin-top: 0.5rem; font-size: 0.95rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* ---------- Schwerpunkte ---------- */
+  .cards {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem;
+  }
+  @media (max-width: 900px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 580px) { .cards { grid-template-columns: 1fr; } }
+  /* Auf reinem Weiß trägt die Füllung die Karte – kein zusätzlicher Rahmen */
+  .card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 1.5rem 1.4rem 1.6rem;
+    display: flex; flex-direction: column; gap: 0.55rem;
+    transition: background-color .18s, transform .18s;
+  }
+  .card:hover { background: var(--surface-hover); transform: translateY(-2px); }
+  .card h3 { font-size: 1.2rem; line-height: 1.25; letter-spacing: -0.012em; }
+  .card p { color: var(--ink-soft); font-size: 1rem; line-height: 1.5; }
+  .card.cert { background: var(--accent-soft); }
+  .card.cert:hover { background: var(--accent-soft); }
+  .card .seal { width: 26px; height: 26px; color: var(--accent); }
+
+  /* ---------- Ausbildung ---------- */
+  .edu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; }
+  @media (max-width: 700px) { .edu-grid { grid-template-columns: 1fr; } }
+  .edu {
+    border-top: 1px solid var(--ink); padding-top: 1.1rem;
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .edu h3 { font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.012em; }
+  .edu p { color: var(--ink-soft); line-height: 1.5; }
+  .edu .yrs { padding-top: 0; }
+
+  /* ---------- Kontakt ---------- */
+  .contact { padding: clamp(3.5rem, 7vw, 6rem) 0; border-top: 1px solid var(--line); }
+  .contact-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem); align-items: start;
+  }
+  @media (max-width: 820px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact h2 {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    line-height: 1.02; letter-spacing: -0.026em;
+    margin-top: 0.5rem; color: var(--ink);
+  }
+  .contact .lead { color: var(--ink-soft); margin-top: 1rem; max-width: var(--measure); font-size: 1.1rem; line-height: 1.55; }
   .contact-list { list-style: none; margin: 0; padding: 0; }
-  .contact-list li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.5rem; padding: 0.9rem 0; border-top: 1px solid var(--line); }
+  .contact-list li {
+    display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1.5rem;
+    padding: 1.05rem 0; border-top: 1px solid var(--line);
+  }
   .contact-list li:last-child { border-bottom: 1px solid var(--line); }
-  @media (max-width: 560px) { .contact-list li { grid-template-columns: 1fr; gap: 0.2rem; } }
-  .contact-list .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 0.3rem; }
-  .contact-list a, .contact-list .v { font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; text-decoration: none; overflow-wrap: anywhere; }
-  .contact-list a:hover { text-decoration: underline; }
+  @media (max-width: 480px) { .contact-list li { grid-template-columns: 1fr; gap: 0.2rem; } }
+  .contact-list .k { font-size: 0.95rem; color: var(--muted); padding-top: 0.2rem; }
+  .contact-list .v, .contact-list a {
+    font-size: 1.15rem; color: var(--ink); text-decoration: none; overflow-wrap: anywhere;
+  }
+  .contact-list a:hover { color: var(--accent); }
 
-  /* Fußzeile */
-  .site-footer { border-top: 1px solid var(--line); padding: 1.5rem 0 2rem; color: var(--muted); font-size: 0.9rem; }
+  /* ---------- Fußzeile ---------- */
+  .site-footer {
+    background: var(--paper); color: var(--muted);
+    border-top: 1px solid var(--line); padding: 1.6rem 0 2.2rem; font-size: 0.95rem;
+  }
   .site-footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-  .site-footer a { color: inherit; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; animation: none !important; }
+  }
 </style>
 </head>
 <body>
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Zur Startseite">
-      <img class="logo" src="logo.png" alt="brunotte.de" width="800" height="192">
-    </a>
+    <a class="wordmark" href="#top">brunotte.de</a>
     <nav class="site-nav" aria-label="Hauptnavigation">
       <a href="#berufsweg">Berufsweg</a>
+      <a href="#schwerpunkte">Schwerpunkte</a>
       <a href="#ausbildung">Ausbildung</a>
-      <a href="#kenntnisse">Kenntnisse</a>
-      <a href="#kontakt">Kontakt</a>
+      <a class="cta" href="#kontakt">Kontakt</a>
     </nav>
   </div>
 </header>
 
 <main id="top">
 
+  <!-- ===== Hero ===== -->
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="eyebrow">Düsseldorf, Nordrhein-Westfalen</p>
-        <h1>Malte Brunotte</h1>
-        <p class="role"><strong>Geschäftsführender Gesellschafter</strong> der <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a></p>
-        <p class="intro">
-          Unternehmer mit Fokus auf Vertriebs- und Business-Development. Seit 2010 Inhaber der
-          <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>. Zuvor Führungsrollen im Vertrieb und Produktmanagement sowie
-          Mitgründer eines e-Commerce Unternehmens.
-        </p>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="label">Düsseldorf, Nordrhein-Westfalen</p>
+          <h1>Malte Brunotte</h1>
+          <p class="roles">
+            <strong>Geschäftsführender Gesellschafter</strong><br>
+            <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>
+          </p>
+          <p class="lead">
+            Unternehmer mit Fokus auf Vertriebs- und Business-Development. Seit 2010 Inhaber der
+            <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>. Zuvor Führungsrollen im Vertrieb und Produktmanagement
+            sowie Mitgründer eines e-Commerce Unternehmens.
+          </p>
+        </div>
+
+        <div class="portrait">
+          <img src="portrait.jpg"
+               srcset="portrait-600.jpg 600w, portrait.jpg 1000w"
+               sizes="(max-width: 860px) 340px, 420px"
+               alt="Porträt von Malte Brunotte"
+               width="1000" height="1250" loading="eager" decoding="async">
+        </div>
       </div>
-      <ul class="facts" aria-label="Kurzprofil">
-        <li><span class="k">Aktuell</span><span class="v"><a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>, seit Januar 2010</span></li>
-        <li><span class="k">Fokus</span><span class="v">Business Development, Social-Media-Marketing, Unternehmertum, Künstliche Intelligenz, Energetische Sanierung</span></li>
-        <li><span class="k">Studium</span><span class="v">Executive MBA · Bauingenieurwesen (RWTH Aachen)</span></li>
-        <li><span class="k">E-Mail</span><span class="v">info[at]brunotte.de</span></li>
-        <li><span class="k">LinkedIn</span><span class="v"><a href="https://www.linkedin.com/in/maltebrunotte/" rel="me noopener" target="_blank">linkedin.com/in/maltebrunotte</a></span></li>
-      </ul>
+
+      <div class="hero-facts">
+        <div>
+          <span class="label">Unternehmer seit</span>
+          <span class="v num">1999</span>
+        </div>
+        <div>
+          <span class="label">Eigenes Unternehmen</span>
+          <span class="v num">seit 2010</span>
+        </div>
+        <div>
+          <span class="label">Studium</span>
+          <span class="v">Executive MBA<br>Bauingenieurwesen</span>
+        </div>
+        <div>
+          <span class="label">Kontakt</span>
+          <span class="v">info[at]brunotte.de</span>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- ===== Berufsweg ===== -->
   <section class="section" id="berufsweg">
-    <div class="wrap section-grid">
-      <div>
-        <p class="eyebrow">Berufserfahrung</p>
-        <h2>Berufsweg</h2>
-        <p class="section-lead">Von der e-Commerce Gründung über sechs Jahre Telko bis zum eigenen Familienunternehmen.</p>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Berufserfahrung</p>
+        <h2>Von der e-Commerce Gründung zum Familienunternehmen</h2>
+        <p class="lead">
+          Vier Stationen in 27 Jahren: Gründung, Konzern, Mittelstand – und seit 2010
+          das eigene Haus in Düsseldorf.
+        </p>
       </div>
-      <ol class="timeline" reversed>
-        <li>
-          <div class="years"><span class="now">Seit Jan. 2010</span><span class="dur">16 Jahre 9 Monate</span></div>
-          <div class="entry">
-            <h3>Geschäftsführender Gesellschafter</h3>
-            <p class="org"><a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a> <span class="place">· Düsseldorf</span></p>
+
+      <p class="scale-note">Balkenlänge = Dauer der Station</p>
+
+      <ol class="track">
+        <li class="current">
+          <div class="yrs"><span class="now">Seit Jan. 2010</span><span class="dur">16 Jahre 10 Monate</span></div>
+          <div>
+            <h3 class="role-title">Geschäftsführender Gesellschafter</h3>
+            <p class="role-org"><a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a> <span class="place">· Düsseldorf</span></p>
+          </div>
+          <div class="bar-cell">
+            <div class="bar"><span style="width: 99%"></span></div>
+            <p class="bar-label">16 Jahre 10 Monate</p>
           </div>
         </li>
         <li>
-          <div class="years">2008 – 2009<span class="dur">1 Jahr</span></div>
-          <div class="entry">
-            <h3>Vice President Sales</h3>
-            <p class="org">OnePhone Deutschland GmbH</p>
+          <div class="yrs">2008 – 2009<span class="dur">1 Jahr</span></div>
+          <div>
+            <h3 class="role-title">Vice President Sales</h3>
+            <p class="role-org">OnePhone Deutschland GmbH</p>
+          </div>
+          <div class="bar-cell">
+            <div class="bar"><span style="width: 6%"></span></div>
+            <p class="bar-label">1 Jahr</p>
           </div>
         </li>
         <li>
-          <div class="years">2002 – 2008<span class="dur">6 Jahre</span></div>
-          <div class="entry">
-            <h3>Vodafone Business</h3>
-            <ul class="sub">
-              <li><span class="years">2005 – 2008</span><h4>Head of IT-Channel</h4></li>
-              <li><span class="years">2002 – 2005</span><h4>Senior Product Manager</h4></li>
+          <div class="yrs">2002 – 2008<span class="dur">6 Jahre</span></div>
+          <div>
+            <h3 class="role-title">Vodafone Business</h3>
+            <ul class="role-sub">
+              <li><span class="yrs">2005 – 2008</span><h4>Head of IT-Channel</h4></li>
+              <li><span class="yrs">2002 – 2005</span><h4>Senior Product Manager</h4></li>
             </ul>
           </div>
+          <div class="bar-cell">
+            <div class="bar"><span style="width: 35%"></span></div>
+            <p class="bar-label">6 Jahre</p>
+          </div>
         </li>
         <li>
-          <div class="years">1999 – 2002<span class="dur">3 Jahre</span></div>
-          <div class="entry">
-            <h3>Co-Founder &amp; COO</h3>
-            <p class="org">abea AG</p>
+          <div class="yrs">1999 – 2002<span class="dur">3 Jahre</span></div>
+          <div>
+            <h3 class="role-title">Co-Founder &amp; COO</h3>
+            <p class="role-org">abea AG</p>
+          </div>
+          <div class="bar-cell">
+            <div class="bar"><span style="width: 18%"></span></div>
+            <p class="bar-label">3 Jahre</p>
           </div>
         </li>
       </ol>
     </div>
   </section>
 
-  <section class="section" id="ausbildung">
-    <div class="wrap section-grid">
-      <div>
-        <p class="eyebrow">Studium</p>
-        <h2>Ausbildung</h2>
-        <p class="section-lead">Ingenieurwissenschaftliche Basis, betriebswirtschaftlich vertieft.</p>
+  <!-- ===== Schwerpunkte ===== -->
+  <section class="section" id="schwerpunkte">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Schwerpunkte</p>
+        <h2>Woran ich arbeite</h2>
+        <p class="lead">
+          Fünf Themen bestimmen den Alltag – vom Vertrieb über die energetische
+          Sanierung bis zum Einsatz von KI im Mittelstand.
+        </p>
       </div>
-      <div>
-        <div class="edu">
-          <div class="years">2004 – 2005</div>
-          <div>
-            <h3>Master of Business Administration (MBA)</h3>
-            <p>Executive MBA General &amp; Financial Management · Hoogeschool Zeeland University of Applied Sciences</p>
-          </div>
-        </div>
-        <div class="edu">
-          <div class="years">1993 – 1998</div>
-          <div>
-            <h3>Bauingenieurwesen</h3>
-            <p>RWTH Aachen University</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section" id="kenntnisse">
-    <div class="wrap section-grid">
-      <div>
-        <p class="eyebrow">Schwerpunkte</p>
-        <h2>Kenntnisse &amp; Zertifikate</h2>
-      </div>
-      <div>
-        <ul class="chips" aria-label="Top-Kenntnisse">
-          <li>Business Development</li>
-          <li>Social-Media-Marketing</li>
-          <li>Unternehmertum</li>
-          <li>Künstliche Intelligenz</li>
-          <li>Energetische Sanierung</li>
-        </ul>
-        <div class="cert">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <ul class="cards">
+        <li class="card">
+          <h3>Business Development</h3>
+          <p>Neue Geschäftsfelder erschließen und Vertriebsstrukturen aufbauen – vom ersten Kontakt bis zum belastbaren Kanal.</p>
+        </li>
+        <li class="card">
+          <h3>Energetische Sanierung</h3>
+          <p>Die bauingenieurwissenschaftliche Grundlage aus Aachen trifft auf ein Thema, das Gebäudebestand und Betriebskosten gleichermaßen verändert.</p>
+        </li>
+        <li class="card">
+          <h3>Künstliche Intelligenz</h3>
+          <p>KI praktisch im Unternehmen einsetzen – mit nachgewiesener KI-Kompetenz nach EU AI Act.</p>
+        </li>
+        <li class="card">
+          <h3>Social-Media-Marketing</h3>
+          <p>Sichtbarkeit für mittelständische Unternehmen dort schaffen, wo Entscheider heute tatsächlich lesen.</p>
+        </li>
+        <li class="card">
+          <h3>Unternehmertum</h3>
+          <p>Gegründet, geführt, übernommen: Erfahrung aus Start-up, Konzern und inhabergeführtem Mittelstand.</p>
+        </li>
+        <li class="card cert">
+          <svg class="seal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="9" r="5.5"/>
             <path d="M8.5 13.5 7 21l5-2.5 5 2.5-1.5-7.5"/>
           </svg>
-          <div>
-            <h3>Nachweis zur KI-Kompetenz (EU AI Act)</h3>
-            <p>Zertifikat · Synnous</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="kontakt">
-    <div class="wrap section-grid">
-      <div>
-        <p class="eyebrow">Kontakt</p>
-        <h2>Schreiben Sie mir</h2>
-        <p class="section-lead">Für Anfragen zur <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>, Kooperationen oder einen Austausch.</p>
-      </div>
-      <ul class="contact-list">
-        <li><span class="k">E-Mail</span><span class="v">info[at]brunotte.de</span></li>
-        <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/maltebrunotte/" rel="me noopener" target="_blank">linkedin.com/in/maltebrunotte</a></li>
-        <li><span class="k">Standort</span><a href="https://www.google.com/maps/place/D%C3%BCsseldorf" rel="noopener" target="_blank">Düsseldorf, Nordrhein-Westfalen</a></li>
+          <h3>Nachweis zur KI-Kompetenz</h3>
+          <p>Zertifikat nach EU AI Act · Synnous</p>
+        </li>
       </ul>
     </div>
   </section>
 
+  <!-- ===== Ausbildung ===== -->
+  <section class="section" id="ausbildung">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Studium</p>
+        <h2>Ausbildung</h2>
+        <p class="lead">Ingenieurwissenschaftliche Basis, betriebswirtschaftlich vertieft.</p>
+      </div>
+      <div class="edu-grid">
+        <div class="edu">
+          <span class="yrs">2004 – 2005</span>
+          <h3>Master of Business Administration</h3>
+          <p>Executive MBA General &amp; Financial Management<br>Hoogeschool Zeeland University of Applied Sciences</p>
+        </div>
+        <div class="edu">
+          <span class="yrs">1993 – 1998</span>
+          <h3>Bauingenieurwesen</h3>
+          <p>RWTH Aachen University</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
+
+<!-- ===== Kontakt ===== -->
+<section class="contact" id="kontakt">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="label">Kontakt</p>
+      <h2>Schreiben Sie mir</h2>
+      <p class="lead">
+        Für Anfragen zur <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>,
+        Kooperationen oder einen Austausch.
+      </p>
+    </div>
+    <ul class="contact-list">
+      <li><span class="k">E-Mail</span><span class="v">info[at]brunotte.de</span></li>
+      <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/maltebrunotte/" rel="me noopener" target="_blank">linkedin.com/in/maltebrunotte</a></li>
+      <li><span class="k">Standort</span><span class="v">Düsseldorf, Nordrhein-Westfalen</span></li>
+    </ul>
+  </div>
+</section>
 
 <footer class="site-footer">
   <div class="wrap">
