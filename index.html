@@ -24,16 +24,17 @@
      ============================================================ */
   :root {
     /* Fläche.
-       Die Schrift ist kein Schwarz, sondern ein tiefes Navy aus dem Logo.
-       Alternativen für --ink:  #171c28 (dezenter)  ·  #102449 (kräftiger) */
+       Kein Schwarz: Schrift, Linien und Flächen liegen auf demselben
+       Grünton wie der Akzent (Farbwinkel 162°), nur sehr viel dunkler
+       bzw. heller. Alternative für --ink: #0f1c17 (noch tiefer) */
     --paper:         #ffffff;
-    --surface:       #f4f5f8;
-    --surface-hover: #edeff4;
-    --ink:           #13203c;
-    --ink-soft:      #3c4b68;
-    --muted:         #727f98;
-    --line:          #e4e6ec;
-    --line-strong:   #c2c7d4;
+    --surface:       #f4f6f5;
+    --surface-hover: #edf0ef;
+    --ink:           #14241f;
+    --ink-soft:      #3d5c53;
+    --muted:         #708f86;
+    --line:          #e6eae9;
+    --line-strong:   #becac7;
     /* Akzent – Hausfarbe der Grunwald GmbH (#206D56) */
     --accent:        #206d56;
     --accent-ink:    #17513f;
@@ -50,34 +51,34 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper:         #0e1118;
-      --surface:       #161b25;
-      --surface-hover: #1b212c;
-      --ink:           #eceef3;
-      --ink-soft:      #bfc6d2;
-      --muted:         #8a93a3;
-      --line:          #232b37;
-      --line-strong:   #343d4d;
+      --paper:         #0d1412;
+      --surface:       #141d1a;
+      --surface-hover: #19231f;
+      --ink:           #ebf1ef;
+      --ink-soft:      #bdd0ca;
+      --muted:         #89a39b;
+      --line:          #222e2a;
+      --line-strong:   #33433d;
       --accent:        #5fbd9e;
       --accent-ink:    #8ad7bd;
       --accent-soft:   #13302a;
-      --on-accent:    #0b0e14;
+      --on-accent:    #0a110e;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --paper:         #0e1118;
-    --surface:       #161b25;
-    --surface-hover: #1b212c;
-    --ink:           #eceef3;
-    --ink-soft:      #bfc6d2;
-    --muted:         #8a93a3;
-    --line:          #232b37;
-    --line-strong:   #343d4d;
+    --paper:         #0d1412;
+    --surface:       #141d1a;
+    --surface-hover: #19231f;
+    --ink:           #ebf1ef;
+    --ink-soft:      #bdd0ca;
+    --muted:         #89a39b;
+    --line:          #222e2a;
+    --line-strong:   #33433d;
     --accent:        #5fbd9e;
     --accent-ink:    #8ad7bd;
     --accent-soft:   #13302a;
-    --on-accent:    #0b0e14;
+    --on-accent:    #0a110e;
     color-scheme: dark;
   }
 
