@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Malte Brunotte</title>
-<meta name="description" content="Malte Brunotte – Geschäftsführender Gesellschafter der Grunwald GmbH, Düsseldorf. Unternehmer, Business Development, Energetische Sanierung, Künstliche Intelligenz.">
+<meta name="description" content="Malte Brunotte – Geschäftsführender Gesellschafter der Grunwald GmbH in Düsseldorf. Flächenheizsysteme für Neubau und energetische Sanierung, Großhandel und Montage.">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -116,7 +116,7 @@
 
   /* E-Mail-Links sollen wie Text aussehen, nicht wie Akzent-Links */
   a.mail { color: inherit; text-decoration: none; transition: color .15s; }
-  a.mail:hover, .hero-facts a.mail:hover, .contact-list a.mail:hover { color: var(--accent); }
+  a.mail:hover { color: var(--accent); }
 
   /* ---------- Kopfzeile ---------- */
   .site-header {
@@ -161,7 +161,7 @@
   /* ---------- Dunkles Band ---------- */
 
   /* ---------- Hero (hell) ---------- */
-  .hero { padding: clamp(3rem, 7vw, 5.5rem) 0 0; border-bottom: 1px solid var(--line); }
+  .hero { padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(3rem, 7vw, 5.5rem); border-bottom: 1px solid var(--line); }
   .hero-grid {
     display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr);
     gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
@@ -203,30 +203,14 @@
     .portrait img { aspect-ratio: 1 / 1; }
   }
 
-  /* Faktenleiste */
-  .hero-facts {
-    margin-top: clamp(2.5rem, 6vw, 4rem);
-    border-top: 1px solid var(--line);
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-  @media (max-width: 860px) { .hero-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 440px) { .hero-facts { grid-template-columns: 1fr; } }
-  .hero-facts > div {
-    padding: 1.35rem 1.5rem 1.6rem 0;
-    display: flex; flex-direction: column; gap: 0.3rem;
-  }
-  .hero-facts > div + div { border-left: 1px solid var(--line); padding-left: 1.5rem; }
-  @media (max-width: 860px) {
-    .hero-facts > div:nth-child(3) { border-left: 0; padding-left: 0; }
-  }
-  @media (max-width: 440px) {
-    .hero-facts > div + div { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); }
-  }
-  .hero-facts .v { font-size: 1.05rem; line-height: 1.35; color: var(--ink); }
-
   /* ---------- Abschnitte ---------- */
   .section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
   .section + .section { border-top: 1px solid var(--line); }
+  /* Der Standpunkt ist der einzige Meinungstext der Seite – deshalb bekommt er
+     als einziger Abschnitt eine eigene Fläche. */
+  .section.tinted { background: var(--accent-soft); }
+  .section.tinted, .section.tinted + .section { border-top: 0; }
+  .section.tinted .label { color: var(--ink-soft); }
   .hero + .section { border-top: 0; }
   .section-head { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
   .section-head h2 {
@@ -239,102 +223,68 @@
     font-size: 1.1rem; line-height: 1.55; color: var(--ink-soft);
     margin-top: 1rem; max-width: var(--measure);
   }
+  /* Vorspann über die volle Breite – fluchtet mit der Tabelle darunter */
+  .section-head.wide, .section-head.wide .lead { max-width: none; }
+  .section-head.wide { padding-bottom: 1.4rem; margin-bottom: 0; }
 
-  /* ---------- Berufsweg ---------- */
-  .scale-note {
-    font-size: 0.9rem; color: var(--muted);
-    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;
-  }
-  .scale-note::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-
+  /* ---------- Vita ----------
+     Drei Spalten: Jahre · Funktion und Firma · Inhalte */
   .track { list-style: none; margin: 0; padding: 0; }
   .track > li {
-    display: grid; grid-template-columns: 9rem minmax(0, 1fr) minmax(0, 1.1fr);
+    display: grid; grid-template-columns: 7rem minmax(0, 1fr) minmax(0, 1.3fr);
     gap: clamp(1rem, 3vw, 2.5rem); align-items: start;
     padding: 1.5rem 0; border-top: 1px solid var(--line);
   }
   .track > li:last-child { border-bottom: 1px solid var(--line); }
-  .track > li.current { background: linear-gradient(90deg, var(--accent-soft), transparent 70%); }
-  @media (max-width: 820px) {
-    .track > li { grid-template-columns: 1fr; gap: 0.5rem; }
+  @media (max-width: 860px) {
+    .track > li { grid-template-columns: 7rem minmax(0, 1fr); }
+    .track > li .role-detail { grid-column: 2; margin-top: 0.5rem; }
   }
-  .yrs { font-size: 0.95rem; color: var(--muted); padding-top: 0.2rem; line-height: 1.45; }
-  .yrs .dur { display: block; }
+  @media (max-width: 560px) {
+    .track > li { grid-template-columns: 1fr; gap: 0.5rem; }
+    .track > li .role-detail { grid-column: 1; margin-top: 0; }
+  }
+  .yrs { font-size: 0.95rem; color: var(--muted); padding-top: 0.25rem; line-height: 1.45; }
   .track .current .yrs .now { color: var(--accent); }
 
-  .role-title { font-size: 1.3rem; line-height: 1.2; letter-spacing: -0.012em; }
+  .role-title { font-size: 1.25rem; line-height: 1.25; letter-spacing: -0.012em; }
   .role-org { color: var(--ink-soft); margin-top: 0.3rem; }
   .role-org .place { color: var(--muted); }
-  .role-sub { list-style: none; margin: 0.85rem 0 0; padding: 0; display: grid; gap: 0.3rem; }
-  .role-sub li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.9rem; }
-  .role-sub .yrs { padding-top: 0; }
-  .role-sub h4 { font-size: 1.05rem; color: var(--ink); }
 
-  /* Dauerbalken – gemeinsame Skala: volle Breite = 17 Jahre */
-  .bar-cell { padding-top: 0.5rem; }
-  @media (max-width: 820px) { .bar-cell { padding-top: 0.25rem; } }
-  .bar { height: 8px; border-radius: 999px; background: var(--line); position: relative; overflow: hidden; }
-  .bar > span { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: var(--line-strong); }
-  .current .bar > span { background: var(--accent); }
-  .bar-label { margin-top: 0.5rem; font-size: 0.95rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  /* Rechte Spalte: was an der Station tatsächlich entstanden ist */
+  .role-detail { display: grid; gap: 0.7rem; padding-top: 0.2rem; }
+  .role-note { color: var(--muted); font-size: 0.99rem; line-height: 1.55; }
+  /* Funktionsbereich vor dem Text, z. B. Marketing / Vertrieb */
+  .fn { color: var(--accent); margin-right: 0.6rem; }
+  .fn::after { content: "·"; margin-left: 0.6rem; color: var(--line-strong); }
 
-  /* ---------- Schwerpunkte ---------- */
-  .cards {
-    list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem;
-  }
-  @media (max-width: 900px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 580px) { .cards { grid-template-columns: 1fr; } }
-  /* Auf reinem Weiß trägt die Füllung die Karte – kein zusätzlicher Rahmen */
-  .card {
-    background: var(--surface); border-radius: var(--radius);
-    padding: 1.5rem 1.4rem 1.6rem;
-    display: flex; flex-direction: column; gap: 0.55rem;
-    transition: background-color .18s, transform .18s;
-  }
-  .card:hover { background: var(--surface-hover); transform: translateY(-2px); }
-  .card h3 { font-size: 1.2rem; line-height: 1.25; letter-spacing: -0.012em; }
-  .card p { color: var(--ink-soft); font-size: 1rem; line-height: 1.5; }
-  .card.cert { background: var(--accent-soft); }
-  .card.cert:hover { background: var(--accent-soft); }
-  .card .seal { width: 26px; height: 26px; color: var(--accent); }
+  /* Studium läuft in derselben Liste mit, wird aber als solches benannt */
+  .study-label { font-size: 0.9rem; color: var(--accent); margin-bottom: 0.15rem; }
 
-  /* ---------- Ausbildung ---------- */
-  .edu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; }
-  @media (max-width: 700px) { .edu-grid { grid-template-columns: 1fr; } }
-  .edu {
-    border-top: 1px solid var(--ink); padding-top: 1.1rem;
-    display: flex; flex-direction: column; gap: 0.3rem;
+  /* ---------- Abschnitte mit Fließtext: Überschrift links, Text rechts ---------- */
+  .section-grid-text {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
+    gap: clamp(1.5rem, 4vw, 4rem); align-items: start;
   }
-  .edu h3 { font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.012em; }
-  .edu p { color: var(--ink-soft); line-height: 1.5; }
-  .edu .yrs { padding-top: 0; }
+  @media (max-width: 860px) { .section-grid-text { grid-template-columns: 1fr; } }
+  .section-grid-text .section-head { margin-bottom: 0; }
 
-  /* ---------- Kontakt ---------- */
-  .contact { padding: clamp(3.5rem, 7vw, 6rem) 0; border-top: 1px solid var(--line); }
-  .contact-grid {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 5vw, 4rem); align-items: start;
-  }
-  @media (max-width: 820px) { .contact-grid { grid-template-columns: 1fr; } }
-  .contact h2 {
-    font-size: clamp(2rem, 4.5vw, 3.1rem);
-    line-height: 1.02; letter-spacing: -0.026em;
-    margin-top: 0.5rem; color: var(--ink);
-  }
-  .contact .lead { color: var(--ink-soft); margin-top: 1rem; max-width: var(--measure); font-size: 1.1rem; line-height: 1.55; }
-  .contact-list { list-style: none; margin: 0; padding: 0; }
-  .contact-list li {
-    display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1.5rem;
-    padding: 1.05rem 0; border-top: 1px solid var(--line);
-  }
-  .contact-list li:last-child { border-bottom: 1px solid var(--line); }
-  @media (max-width: 480px) { .contact-list li { grid-template-columns: 1fr; gap: 0.2rem; } }
-  .contact-list .k { font-size: 0.95rem; color: var(--muted); padding-top: 0.2rem; }
-  .contact-list .v, .contact-list a {
-    font-size: 1.15rem; color: var(--ink); text-decoration: none; overflow-wrap: anywhere;
-  }
-  .contact-list a:hover { color: var(--accent); }
+  .prose { display: grid; gap: 1.1rem; max-width: var(--measure); }
+  .prose p { font-size: 1.1rem; line-height: 1.6; color: var(--ink-soft); }
+  .prose p:first-child { color: var(--ink); }
+  /* Schlagworte im Fließtext: eine Stufe kräftiger und in voller Schriftfarbe –
+     keine echte Fettung, die gibt es sonst nirgends auf der Seite. */
+  .prose strong { font-weight: 500; color: var(--ink); }
+  /* Schlusszeile mit Verweis – gleiche Größe wie der Fließtext, nur gedämpfter */
+  .prose .prose-note { color: var(--muted); margin-top: 0.3rem; }
+
+  /* ---------- Kontakt ----------
+     Gleiches Raster wie die Abschnitte darüber: Überschrift links, Inhalt rechts.
+     Keine eigene Trennlinie – die Abschlusslinie der Vita grenzt bereits ab. */
+  .contact { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+  /* Im Fließtext soll die Adresse als Link erkennbar sein, nicht als Text */
+  .prose a.mail { color: var(--accent); text-decoration: underline; }
+  .prose a.mail:hover { color: var(--accent-ink); }
 
   /* ---------- Fußzeile ---------- */
   .site-footer {
@@ -355,9 +305,9 @@
   <div class="wrap">
     <a class="wordmark" href="#top">brunotte.de</a>
     <nav class="site-nav" aria-label="Hauptnavigation">
-      <a href="#berufsweg">Berufsweg</a>
-      <a href="#schwerpunkte">Schwerpunkte</a>
-      <a href="#ausbildung">Ausbildung</a>
+      <a href="#arbeit">Was ich mache</a>
+      <a href="#standpunkt">Standpunkt</a>
+      <a href="#vita">Vita</a>
       <a class="cta" href="#kontakt">Kontakt</a>
     </nav>
   </div>
@@ -365,7 +315,7 @@
 
 <main id="top">
 
-  <!-- ===== Hero ===== -->
+  <!-- ===== Kopf ===== -->
   <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
@@ -376,9 +326,10 @@
             <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>
           </p>
           <p class="lead">
-            Unternehmer mit Fokus auf Vertriebs- und Business-Development. Seit 2010 Inhaber der
-            <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a> in Düsseldorf. Zuvor Führungsrollen im Vertrieb und Produktmanagement
-            sowie Mitgründer eines e-Commerce Unternehmens.
+            Unternehmer mit Fokus auf Vertrieb und Business Development. Seit 2010 führe ich die
+            <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a> in Düsseldorf –
+            Flächenheizsysteme für Neubau und Sanierung, Großhandel und Handwerksbetrieb in einem.
+            Davor zehn Jahre Telekommunikation, davor ein Internet-Startup.
           </p>
         </div>
 
@@ -391,158 +342,190 @@
         </div>
       </div>
 
-      <div class="hero-facts">
-        <div>
-          <span class="label">Unternehmer seit</span>
-          <span class="v num">1999</span>
-        </div>
-        <div>
-          <span class="label">Eigenes Unternehmen</span>
-          <span class="v num">seit 2010</span>
-        </div>
-        <div>
-          <span class="label">Studium</span>
-          <span class="v">Executive MBA<br>Bauingenieurwesen</span>
-        </div>
-        <div>
-          <span class="label">Kontakt</span>
-          <span class="v mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- ===== Berufsweg ===== -->
-  <section class="section" id="berufsweg">
-    <div class="wrap">
+  <!-- ===== Was ich mache ===== -->
+  <section class="section" id="arbeit">
+    <div class="wrap section-grid-text">
       <div class="section-head">
-        <p class="label">Berufserfahrung</p>
-        <h2>Von der e-Commerce Gründung zum Familienunternehmen</h2>
-        <p class="lead">
-          Vier Stationen in 27 Jahren: Gründung, Konzern, Mittelstand – und seit 2010
-          das eigene Haus in Düsseldorf.
+        <p class="label">Grunwald GmbH</p>
+        <h2>Was ich mache</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Wir liefern und montieren Flächenheizsysteme – Fußboden-, Wand- und Deckenheizung
+          für Alt- und Neubau, (energetische) Sanierung, Umbau oder Modernisierung. Egal ob
+          Wintergarten-Anbau oder Großbaustelle.
+        </p>
+        <p>
+          Mein Schwiegervater hat das Unternehmen 1982 gegründet, als reinen Großhandel:
+          Material für Flächenheizung, verkauft an Installateure und Heizungsbauer. 2010 habe
+          ich es übernommen und seitdem in zwei Richtungen erweitert.
+        </p>
+        <p>
+          Zum einen sind wir sichtbar geworden. Verkauft wird nach wie vor nicht über das Netz –
+          aber seit wir online und in den sozialen Medien auffindbar sind, kommen auch
+          Endkunden direkt auf uns zu, nicht mehr nur das Handwerk.
+        </p>
+        <p>
+          Zum anderen montieren wir selbst. Anfangs haben wir unseren Kunden Monteure vermittelt,
+          dann mit Subunternehmern gearbeitet, heute sind es eigene Leute. Damit sind wir
+          Großhandel und Handwerksbetrieb zugleich – ein Modell, das es am Markt so selten gibt.
+          Rund 15 Kollegen arbeiten heute bei uns.
+        </p>
+        <p class="prose-note">
+          Das vollständige Produktportfolio steht auf
+          <a href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">grunwald-gmbh.com</a>.
         </p>
       </div>
-
-      <p class="scale-note">Balkenlänge = Dauer der Station</p>
-
-      <ol class="track">
-        <li class="current">
-          <div class="yrs"><span class="now">Seit Jan. 2010</span><span class="dur">16 Jahre 10 Monate</span></div>
-          <div>
-            <h3 class="role-title">Geschäftsführender Gesellschafter</h3>
-            <p class="role-org"><a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a> <span class="place">· Düsseldorf</span></p>
-          </div>
-          <div class="bar-cell">
-            <div class="bar"><span style="width: 99%"></span></div>
-            <p class="bar-label">16 Jahre 10 Monate</p>
-          </div>
-        </li>
-        <li>
-          <div class="yrs">2008 – 2009<span class="dur">1 Jahr</span></div>
-          <div>
-            <h3 class="role-title">Vice President Sales</h3>
-            <p class="role-org">OnePhone Deutschland GmbH</p>
-          </div>
-          <div class="bar-cell">
-            <div class="bar"><span style="width: 6%"></span></div>
-            <p class="bar-label">1 Jahr</p>
-          </div>
-        </li>
-        <li>
-          <div class="yrs">2002 – 2008<span class="dur">6 Jahre</span></div>
-          <div>
-            <h3 class="role-title">Vodafone Business</h3>
-            <ul class="role-sub">
-              <li><span class="yrs">2005 – 2008</span><h4>Head of IT-Channel</h4></li>
-              <li><span class="yrs">2002 – 2005</span><h4>Senior Product Manager</h4></li>
-            </ul>
-          </div>
-          <div class="bar-cell">
-            <div class="bar"><span style="width: 35%"></span></div>
-            <p class="bar-label">6 Jahre</p>
-          </div>
-        </li>
-        <li>
-          <div class="yrs">1999 – 2002<span class="dur">3 Jahre</span></div>
-          <div>
-            <h3 class="role-title">Co-Founder &amp; COO</h3>
-            <p class="role-org">abea AG</p>
-          </div>
-          <div class="bar-cell">
-            <div class="bar"><span style="width: 18%"></span></div>
-            <p class="bar-label">3 Jahre</p>
-          </div>
-        </li>
-      </ol>
     </div>
   </section>
 
   <!-- ===== Schwerpunkte ===== -->
   <section class="section" id="schwerpunkte">
-    <div class="wrap">
+    <div class="wrap section-grid-text">
       <div class="section-head">
         <p class="label">Schwerpunkte</p>
         <h2>Woran ich arbeite</h2>
-        <p class="lead">
-          Fünf Themen bestimmen den Alltag – vom Vertrieb über die energetische
-          Sanierung bis zum Einsatz von KI im Mittelstand.
+      </div>
+      <div class="prose">
+        <p>
+          Mein Schwerpunkt liegt dort, wo Vertrieb auf Technik trifft.
+          <strong>Business Development</strong> bedeutet im eigenen Betrieb dasselbe wie früher
+          im Konzern: neue Kundengruppen erschließen, Vertriebswege aufbauen, Partner gewinnen –
+          nur entscheide ich heute selbst, was daraus wird.
+        </p>
+        <p>
+          Fachlich bestimmt die <strong>energetische Sanierung</strong> die Arbeit. Der größere
+          Hebel liegt im Bestand, nicht im Neubau – warum, steht im Abschnitt darunter.
+        </p>
+        <p>
+          Sichtbarkeit entsteht über <strong>Social Media</strong> und die eigenen
+          Online-Kanäle. Für ein Unternehmen, das aus dem reinen Großhandel kommt, war das die
+          größte Umstellung der letzten Jahre – und der Grund, warum heute auch Endkunden
+          direkt auf uns zukommen.
+        </p>
+        <p>
+          Dazu kommt <strong>Künstliche Intelligenz</strong>, als Werkzeug und nicht als
+          Schlagwort: Prozesse und Abläufe automatisieren, Marktanalyse und Recherche
+          beschleunigen, Ansatzpunkte fürs Geschäft finden. Ich bilde mich laufend dazu fort.
         </p>
       </div>
-
-      <ul class="cards">
-        <li class="card">
-          <h3>Business Development</h3>
-          <p>Neue Geschäftsfelder erschließen und Vertriebsstrukturen aufbauen – vom ersten Kontakt bis zum belastbaren Kanal.</p>
-        </li>
-        <li class="card">
-          <h3>Energetische Sanierung</h3>
-          <p>Die bauingenieurwissenschaftliche Grundlage aus Aachen trifft auf ein Thema, das Gebäudebestand und Betriebskosten gleichermaßen verändert.</p>
-        </li>
-        <li class="card">
-          <h3>Künstliche Intelligenz</h3>
-          <p>KI praktisch im Unternehmen einsetzen – mit nachgewiesener KI-Kompetenz nach EU AI Act.</p>
-        </li>
-        <li class="card">
-          <h3>Social-Media-Marketing</h3>
-          <p>Sichtbarkeit für mittelständische Unternehmen dort schaffen, wo Entscheider heute tatsächlich lesen.</p>
-        </li>
-        <li class="card">
-          <h3>Unternehmertum</h3>
-          <p>Gegründet, geführt, übernommen: Erfahrung aus Start-up, Konzern und inhabergeführtem Mittelstand.</p>
-        </li>
-        <li class="card cert">
-          <svg class="seal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="9" r="5.5"/>
-            <path d="M8.5 13.5 7 21l5-2.5 5 2.5-1.5-7.5"/>
-          </svg>
-          <h3>Nachweis zur KI-Kompetenz</h3>
-          <p>Zertifikat nach EU AI Act · Synnous</p>
-        </li>
-      </ul>
     </div>
   </section>
 
-  <!-- ===== Ausbildung ===== -->
-  <section class="section" id="ausbildung">
-    <div class="wrap">
+  <!-- ===== Standpunkt ===== -->
+  <section class="section tinted" id="standpunkt">
+    <div class="wrap section-grid-text">
       <div class="section-head">
-        <p class="label">Studium</p>
-        <h2>Ausbildung</h2>
-        <p class="lead">Ingenieurwissenschaftliche Basis, betriebswirtschaftlich vertieft.</p>
+        <p class="label">Standpunkt</p>
+        <h2>Eine Wärmepumpe ist nur so gut wie das System, das ihre Wärme verteilt</h2>
       </div>
-      <div class="edu-grid">
-        <div class="edu">
-          <span class="yrs">2004 – 2005</span>
-          <h3>Master of Business Administration</h3>
-          <p>Executive MBA General &amp; Financial Management<br>Hoogeschool Zeeland University of Applied Sciences</p>
-        </div>
-        <div class="edu">
-          <span class="yrs">1993 – 1998</span>
-          <h3>Bauingenieurwesen</h3>
-          <p>RWTH Aachen University</p>
-        </div>
+      <div class="prose">
+        <p>
+          Die Politik propagiert die Wärmepumpe, und das zu Recht. Nur wird dabei meist über das
+          Gerät geredet und selten darüber, was danach kommt.
+        </p>
+        <p>
+          Eine Wärmepumpe arbeitet am effizientesten, wenn sie niedrige Vorlauftemperaturen
+          liefern darf: Je niedriger die Temperatur, desto weniger Strom braucht sie. Diese
+          niedrige Temperatur muss aber auch jemand im Raum verteilen – und genau das kann ein
+          klassischer Heizkörper schlecht. Er braucht Hitze auf kleiner Fläche. Eine
+          Flächenheizung macht das Gegenteil: viel Fläche, wenig Temperatur. Boden, Wand oder
+          Decke geben die Wärme über ihre gesamte Ausdehnung ab.
+        </p>
+        <p>
+          Deshalb gehören beide zusammen. Wer eine Wärmepumpe in ein Gebäude setzt, dessen
+          Wärmeverteilung auf hohe Vorlauftemperaturen ausgelegt ist, kauft eine teure Anlage,
+          die dauerhaft unter ihren Möglichkeiten läuft. Bei der energetischen Sanierung
+          entscheidet sich der Wirkungsgrad nicht am Gerät, sondern im Fußboden.
+        </p>
+        <p>
+          Das ist der Grund, warum wir uns auf den Bestand konzentrieren. Im Neubau plant das
+          heute ohnehin jeder so. Im Altbau liegt die eigentliche Arbeit – und der größere Hebel.
+        </p>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== Vita ===== -->
+  <section class="section" id="vita">
+    <div class="wrap">
+      <div class="section-head wide">
+        <p class="label">Werdegang</p>
+        <h2>Vita</h2>
+        <p class="lead">
+          Studium, Gründung, Konzern, Familienunternehmen. Was sich durchzieht:
+          Unterschiedliche Disziplinen zusammenbringen – und die Menschen, die sie beherrschen.
+        </p>
+      </div>
+
+      <ol class="track">
+        <li class="current">
+          <div class="yrs"><span class="now">seit 2010</span></div>
+          <div class="role">
+            <h3 class="role-title">Geschäftsführender Gesellschafter</h3>
+            <p class="role-org"><a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a> <span class="place">· Düsseldorf</span></p>
+          </div>
+          <div class="role-detail">
+            <p class="role-note">Übernahme des 1982 gegründeten Familienunternehmens und Ausbau vom reinen Großhandel zum Betrieb mit eigener Montage.</p>
+          </div>
+        </li>
+        <li>
+          <div class="yrs">2008 – 2009</div>
+          <div class="role">
+            <h3 class="role-title">Vice President Sales</h3>
+            <p class="role-org">OnePhone Deutschland GmbH</p>
+          </div>
+          <div class="role-detail">
+            <p class="role-note">Aufbau und Verantwortung des Vertriebs für eine integrierte Telekommunikationslösung.</p>
+          </div>
+        </li>
+        <li class="study">
+          <div class="yrs">2004 – 2005</div>
+          <div class="role">
+            <p class="study-label">Berufsbegleitendes Studium</p>
+            <h3 class="role-title">Master of Business Administration</h3>
+            <p class="role-org">HZ University of Applied Sciences</p>
+          </div>
+          <div class="role-detail">
+            <p class="role-note">Executive MBA General &amp; Financial Management. Masterarbeit über Mergers versus Acquisitions in der Telekommunikationsbranche.</p>
+          </div>
+        </li>
+        <li>
+          <div class="yrs">2002 – 2008</div>
+          <div class="role">
+            <h3 class="role-title">Head of IT-Channel,<br>Senior Product Manager</h3>
+            <p class="role-org">Vodafone GmbH <span class="place">/ Business</span></p>
+          </div>
+          <div class="role-detail">
+            <p class="role-note"><span class="fn">Vertrieb</span>Aufbau und Leitung eines indirekten Vertriebskanals mit IT-Partnern und Roll-out über die Niederlassungen.</p>
+            <p class="role-note"><span class="fn">Marketing</span>Markteinführung und Vermarktung des Multimedia Messaging Service (MMS).</p>
+          </div>
+        </li>
+        <li>
+          <div class="yrs">1999 – 2002</div>
+          <div class="role">
+            <h3 class="role-title">Co-Founder &amp; COO</h3>
+            <p class="role-org">abea AG</p>
+          </div>
+          <div class="role-detail">
+            <p class="role-note">E-Commerce für Parfümerieartikel, gegründet mitten im Internet-Boom. Verantwortung für Technik und Marketing.</p>
+          </div>
+        </li>
+        <li class="study">
+          <div class="yrs">1993 – 1998</div>
+          <div class="role">
+            <p class="study-label">Studium</p>
+            <h3 class="role-title">Bauingenieurwesen</h3>
+            <p class="role-org">RWTH Aachen University</p>
+          </div>
+          <div class="role-detail">
+            <p class="role-note">Nach zehn Jahren Telekommunikation schien Aachen weit weg – heute habe ich täglich mit Baustellen zu tun.</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -550,20 +533,22 @@
 
 <!-- ===== Kontakt ===== -->
 <section class="contact" id="kontakt">
-  <div class="wrap contact-grid">
-    <div>
+  <div class="wrap section-grid-text">
+    <div class="section-head">
       <p class="label">Kontakt</p>
       <h2>Schreiben Sie mir</h2>
-      <p class="lead">
-        Für Anfragen zur <a class="org-link" href="https://www.grunwald-gmbh.com" target="_blank" rel="noopener">Grunwald GmbH</a>,
-        Kooperationen oder einen Austausch.
+    </div>
+    <div class="prose">
+      <p>
+        Für einen fachlichen Austausch, Kooperationen oder wenn Sie wissen möchten, wer hinter
+        der Grunwald GmbH steht, erreichen Sie mich unter
+        <span class="mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span>.
+      </p>
+      <p>
+        Konkrete Projektanfragen stellen Sie am besten direkt
+        <a href="https://grunwald-gmbh.com/#finden" target="_blank" rel="noopener">über unsere Website</a>.
       </p>
     </div>
-    <ul class="contact-list">
-      <li><span class="k">E-Mail</span><span class="v mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span></li>
-      <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/maltebrunotte/" rel="me noopener" target="_blank">linkedin.com/in/maltebrunotte</a></li>
-      <li><span class="k">Standort</span><span class="v">Düsseldorf, Nordrhein-Westfalen</span></li>
-    </ul>
   </div>
 </section>
 
