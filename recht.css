@@ -1,0 +1,217 @@
+/* ============================================================
+   Gemeinsame Gestaltung der Rechtsseiten (Impressum, Datenschutz).
+
+   Bewusst eine eigene Datei und nicht der vollstaendige Stil der
+   Startseite: Diese Seiten brauchen nur Kopf, Fliesstext und Fuss.
+   Die Farbwerte und die Schrifteinbindung sind mit index.html
+   gleichzuhalten - aendert sich dort ein Token, hier mitziehen.
+   ============================================================ */
+
+/* ---------- Schrift: lokal, nicht ueber Google ---------- */
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/hanken-grotesk-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/hanken-grotesk-500-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/hanken-grotesk-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/hanken-grotesk-500-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- Farben: identisch zu index.html ---------- */
+:root {
+  --paper:         #ffffff;
+  --surface:       #f4f6f5;
+  --ink:           #14241f;
+  --ink-soft:      #3d5c53;
+  --muted:         #708f86;
+  --line:          #e6eae9;
+  --line-strong:   #becac7;
+  --accent:        #206d56;
+  --accent-ink:    #17513f;
+  --accent-soft:   #e3eeea;
+  --font: "Hanken Grotesk", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --measure: 62ch;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:         #0d1412;
+    --surface:       #141d1a;
+    --ink:           #ebf1ef;
+    --ink-soft:      #bdd0ca;
+    --muted:         #89a39b;
+    --line:          #222e2a;
+    --line-strong:   #33433d;
+    --accent:        #5fbd9e;
+    --accent-ink:    #8ad7bd;
+    --accent-soft:   #13302a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:         #0d1412;
+  --surface:       #141d1a;
+  --ink:           #ebf1ef;
+  --ink-soft:      #bdd0ca;
+  --muted:         #89a39b;
+  --line:          #222e2a;
+  --line-strong:   #33433d;
+  --accent:        #5fbd9e;
+  --accent-ink:    #8ad7bd;
+  --accent-soft:   #13302a;
+  color-scheme: dark;
+}
+
+/* ---------- Grundlagen ---------- */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-wrap: pretty;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+strong, b { font-weight: 500; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.wrap { width: min(1140px, 100% - 3rem); margin-inline: auto; }
+
+/* E-Mail-Links sehen aus wie Text, nicht wie Akzent-Links */
+a.mail { color: inherit; text-decoration: none; transition: color .15s; }
+a.mail:hover { color: var(--accent); }
+
+/* ---------- Kopfzeile ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; height: 76px;
+}
+.wordmark {
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color .15s;
+}
+.wordmark:hover { color: var(--accent); }
+
+.site-nav { display: flex; align-items: center; gap: 1.75rem; }
+.site-nav a {
+  color: var(--ink-soft); text-decoration: none; font-size: 1rem;
+  padding: 0.3rem 0; border-bottom: 1px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.site-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---------- Inhalt ---------- */
+.recht { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(3rem, 7vw, 5rem); }
+
+.recht .label { font-size: 0.95rem; color: var(--muted); margin: 0 0 0.6rem; }
+
+.recht h1 {
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.1rem;
+}
+
+.recht .vorspann {
+  font-size: 1.1rem; line-height: 1.55; color: var(--ink-soft);
+  max-width: var(--measure); margin: 0 0 2.6rem;
+}
+
+.recht h2 {
+  font-size: 1.35rem;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  margin: 2.8rem 0 0.7rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+.recht h2:first-of-type { margin-top: 0; }
+
+.recht h3 {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  margin: 1.6rem 0 0.35rem;
+}
+
+.recht p, .recht ul { max-width: var(--measure); }
+.recht p { margin: 0 0 0.85rem; }
+.recht ul { margin: 0 0 0.85rem; padding-left: 1.15rem; }
+.recht li { margin-bottom: 0.3rem; }
+
+/* Anschriftenblock: Zeilenumbrueche wie geschrieben */
+.anschrift {
+  margin: 0 0 1.4rem;
+  line-height: 1.65;
+}
+.anschrift .name { font-weight: 500; }
+
+/* Hervorgehobener Kasten in der Farbe des Standpunkts */
+.kasten {
+  background: var(--accent-soft);
+  padding: 1.1rem 1.3rem;
+  margin: 1.4rem 0 1.6rem;
+  max-width: var(--measure);
+}
+.kasten p:last-child { margin-bottom: 0; }
+
+.stand { color: var(--muted); font-size: 0.95rem; margin-top: 2.6rem; }
+
+/* ---------- Fusszeile ---------- */
+.site-footer {
+  background: var(--paper); color: var(--muted);
+  border-top: 1px solid var(--line); padding: 1.6rem 0 2.2rem; font-size: 0.95rem;
+}
+.site-footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.site-footer .rechts { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
+.site-footer a:not(.mail) { color: var(--muted); text-decoration: none; transition: color .15s; }
+.site-footer a:not(.mail):hover { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}

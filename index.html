@@ -334,6 +334,9 @@
     border-top: 1px solid var(--line); padding: 1.6rem 0 2.2rem; font-size: 0.95rem;
   }
   .site-footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .footer-rechts { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
+  .site-footer a:not(.mail) { color: var(--muted); text-decoration: none; transition: color .15s; }
+  .site-footer a:not(.mail):hover { color: var(--accent); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -633,7 +636,11 @@
 <footer class="site-footer">
   <div class="wrap">
     <span>© 2026 Malte Brunotte</span>
-    <span class="mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span>
+    <span class="footer-rechts">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <span class="mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span>
+    </span>
   </div>
 </footer>
 

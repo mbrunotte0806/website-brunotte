@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impressum – Malte Brunotte</title>
+<meta name="description" content="Impressum und Anbieterkennzeichnung nach § 5 DDG für brunotte.de.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.brunotte.de/impressum.html">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="recht.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="/">brunotte.de</a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <a href="/">Zurück zur Startseite</a>
+    </nav>
+  </div>
+</header>
+
+<main class="recht">
+  <div class="wrap">
+
+    <p class="label">Rechtliches</p>
+    <h1>Impressum</h1>
+    <p class="vorspann">
+      Anbieterkennzeichnung für brunotte.de nach § 5 Digitale-Dienste-Gesetz (DDG)
+      und § 18 Absatz 2 Medienstaatsvertrag (MStV).
+    </p>
+
+    <h2>Angaben gemäß § 5 DDG</h2>
+    <p class="anschrift">
+      <span class="name">Malte Brunotte</span><br>
+      Höherweg 234<br>
+      40231 Düsseldorf<br>
+      Deutschland
+    </p>
+
+    <h2>Kontakt</h2>
+    <p class="anschrift">
+      Telefon: <a href="tel:+492117335544" class="mail">+49 211 7 33 55 44</a><br>
+      E-Mail: <span class="mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span>
+    </p>
+
+    <h2>Verantwortlich für den Inhalt nach § 18 Absatz 2 MStV</h2>
+    <p class="anschrift">
+      <span class="name">Malte Brunotte</span><br>
+      Anschrift wie oben
+    </p>
+
+    <h2>Verhältnis zur Grunwald GmbH</h2>
+    <div class="kasten">
+      <p>
+        Diese Seite ist ein persönliches Angebot und beschreibt meine Person und meine Arbeit.
+        Sie ist kein Angebot der Grunwald GmbH und dient nicht dem Vertrieb von deren Leistungen.
+      </p>
+      <p>
+        Produkte, Leistungen und Projektanfragen finden Sie unter
+        <a href="https://grunwald-gmbh.com" target="_blank" rel="noopener">grunwald-gmbh.com</a>.
+        Dort gilt ein eigenes Impressum.
+      </p>
+    </div>
+
+    <h2>Umsatzsteuer</h2>
+    <p>
+      Für dieses persönliche Angebot besteht keine eigene Umsatzsteuer-Identifikationsnummer.
+      Die Umsatzsteuer-Identifikationsnummer der Grunwald GmbH ist in deren Impressum angegeben.
+    </p>
+
+    <h2>Streitbeilegung</h2>
+    <p>
+      Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+      Verbraucherschlichtungsstelle teilzunehmen.
+    </p>
+
+    <p class="stand">Stand: November 2026</p>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Malte Brunotte</span>
+    <span class="rechts">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <span class="mail" data-u="info" data-d="brunotte.de">info [at] brunotte.de</span>
+    </span>
+  </div>
+</footer>
+
+<script>
+  /* E-Mail-Adressen erst im Browser zusammensetzen – hält einfache Sammel-Bots fern. */
+  document.querySelectorAll('span.mail').forEach(function (el) {
+    var addr = el.dataset.u + String.fromCharCode(64) + el.dataset.d;
+    var a = document.createElement('a');
+    a.className = el.className;
+    a.href = 'mail' + 'to:' + addr;
+    a.textContent = addr;
+    a.rel = 'nofollow';
+    el.replaceWith(a);
+  });
+</script>
+
+</body>
+</html>
