@@ -1,0 +1,80 @@
+# ============================================================
+#  Veroeffentlichung auf den STRATO-Webspace per SFTP.
+#
+#  Vorerst nur manuell ausloesbar (workflow_dispatch), damit ein
+#  fehlender Zugangsdatensatz keine Fehlermeldungen bei jedem Push
+#  erzeugt. Sobald ein Durchlauf sauber war, wird der Ausloeser
+#  "push" aktiviert - dann ist der Ablauf wie bisher bei Vercel.
+#
+#  Benoetigte Secrets im GitHub-Repository
+#  (Settings -> Secrets and variables -> Actions -> New secret):
+#    STRATO_HOST  - z. B. ssh.strato.de
+#    STRATO_USER  - der SFTP-Benutzername aus dem STRATO-Kundenbereich
+#    STRATO_PASS  - das zugehoerige Passwort
+#    STRATO_PATH  - Zielverzeichnis auf dem Webspace, z. B. / oder /brunotte.de
+#
+#  Die Zugangsdaten gehoeren ausschliesslich in diese Secrets -
+#  niemals in eine Datei im Repository.
+# ============================================================
+
+name: Auf STRATO veroeffentlichen
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+
+concurrency:
+  group: deploy-strato
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stand auschecken
+        uses: actions/checkout@v4
+
+      - name: lftp installieren
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Dateien hochladen
+        env:
+          HOST: ${{ secrets.STRATO_HOST }}
+          USER: ${{ secrets.STRATO_USER }}
+          PASS: ${{ secrets.STRATO_PASS }}
+          DEST: ${{ secrets.STRATO_PATH }}
+        run: |
+          set -euo pipefail
+          test -n "$HOST" && test -n "$USER" && test -n "$PASS" && test -n "$DEST"
+
+          # mirror -R spiegelt das Arbeitsverzeichnis auf den Server.
+          # --delete ist bewusst NICHT gesetzt: Beim ersten Lauf soll
+          # nichts auf dem Webspace geloescht werden. Erst wenn feststeht,
+          # dass das Zielverzeichnis allein dieser Seite gehoert, kann es
+          # ergaenzt werden.
+          lftp -c "
+            set sftp:auto-confirm yes;
+            set net:max-retries 3;
+            set net:timeout 20;
+            open -u '$USER','$PASS' sftp://$HOST;
+            mirror --reverse --verbose --parallel=4 \
+              --exclude-glob .git/ \
+              --exclude-glob .github/ \
+              --exclude-glob .gitignore \
+              --exclude-glob vercel.json \
+              --exclude-glob stakeholder-analyse.* \
+              --exclude-glob entwurf.html \
+              --exclude-glob redesign*.html \
+              --exclude-glob notizen/ \
+              --exclude-glob mb.jpg \
+              ./ '$DEST';
+          "
+
+      - name: Ergebnis pruefen
+        run: |
+          echo "Hochgeladen. Pruefung der veroeffentlichten Seite:"
+          for p in / /impressum.html /datenschutz.html /recht.css /fonts/hanken-grotesk-400-latin.woff2; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://www.brunotte.de$p" || echo "---")
+            printf '%-45s %s\n' "$p" "$code"
+          done

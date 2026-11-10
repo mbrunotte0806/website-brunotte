@@ -1,0 +1,66 @@
+# ============================================================
+#  brunotte.de auf Apache (STRATO)
+#  Ersetzt vercel.json. Vercel hat Weiterleitungen und
+#  Komprimierung automatisch gemacht - hier steht beides explizit.
+# ============================================================
+
+AddDefaultCharset UTF-8
+DirectoryIndex index.html
+Options -Indexes
+
+# ------------------------------------------------------------
+#  Einheitliche Adresse: immer www.brunotte.de
+#
+#  HTTPS wird bewusst NICHT hier erzwungen, sondern ueber die
+#  Einstellung im STRATO-Kundenbereich. Auf geteiltem Hosting
+#  laesst sich nicht zuverlaessig erkennen, ob die Verbindung
+#  schon verschluesselt ist - eine Regel dafuer kann in eine
+#  Endlosweiterleitung laufen.
+# ------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} !^www\.brunotte\.de$ [NC]
+  RewriteCond %{HTTP_HOST} !^$
+  RewriteRule ^ https://www.brunotte.de%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ------------------------------------------------------------
+#  Zwischenspeicherung im Browser
+# ------------------------------------------------------------
+<IfModule mod_headers.c>
+
+  # Schriften aendern sich praktisch nie: ein Jahr, ohne Rueckfrage.
+  # Wird eine Schrift je ausgetauscht, muss der Dateiname mitgeaendert
+  # werden - sonst sehen wiederkehrende Besucher die alte.
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Bilder: eine Woche. Kurz genug, um das Portraet tauschen zu koennen.
+  <FilesMatch "\.(jpg|jpeg|png|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+
+  # Seiten und Stil immer frisch pruefen - sonst kommen Textaenderungen
+  # bei wiederkehrenden Besuchern tagelang nicht an.
+  <FilesMatch "\.(html|css|js)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+</IfModule>
+
+# ------------------------------------------------------------
+#  Komprimierung (woff2 ist bereits komprimiert und bleibt aussen vor)
+# ------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ------------------------------------------------------------
+#  Korrekter Typ fuer Schriftdateien, falls der Server ihn nicht kennt
+# ------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+</IfModule>
