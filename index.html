@@ -11,10 +11,46 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="theme-color" content="#ffffff">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap">
 <style>
+  /* ============================================================
+     Hanken Grotesk - lokal eingebunden (SIL Open Font License 1.1,
+     Lizenztext in fonts/OFL.txt). Bewusst nicht ueber Google Fonts:
+     das wuerde die IP-Adresse jedes Besuchers an Google uebertragen.
+     Nur die Gewichte 400 und 500 - mehr verwendet die Seite nicht.
+     ============================================================ */
+  @font-face {
+    font-family: "Hanken Grotesk";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("fonts/hanken-grotesk-400-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: "Hanken Grotesk";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("fonts/hanken-grotesk-500-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: "Hanken Grotesk";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("fonts/hanken-grotesk-400-latin-ext.woff2") format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face {
+    font-family: "Hanken Grotesk";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("fonts/hanken-grotesk-500-latin-ext.woff2") format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+
   /* ============================================================
      ENTWURF Re-Design
      Farbe   · aus dem Logo: Navy #171C28 + Blau #2C6BF2
@@ -279,6 +315,7 @@
   .prose p:first-child { color: var(--ink); }
   /* Schlagworte im Fließtext: eine Stufe kräftiger und in voller Schriftfarbe –
      keine echte Fettung, die gibt es sonst nirgends auf der Seite. */
+  strong, b { font-weight: 500; }
   .prose strong { font-weight: 500; color: var(--ink); }
   /* Schlusszeile mit Verweis – gleiche Größe wie der Fließtext, nur gedämpfter */
   .prose .prose-note { color: var(--muted); margin-top: 0.3rem; }
