@@ -47,6 +47,8 @@
 
     --radius: 10px;
     --measure: 56ch;
+    /* Vorspann etwas breiter – lange Komposita reissen sonst Loecher in den Flattersatz */
+    --measure-lead: 64ch;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
@@ -185,7 +187,8 @@
   .hero .roles strong { font-weight: 400; color: var(--ink); }
   .hero .lead {
     font-size: 1.1rem; line-height: 1.55; color: var(--ink-soft);
-    max-width: var(--measure); margin-top: 1.75rem;
+    max-width: var(--measure-lead); margin-top: 1.75rem;
+    text-wrap: pretty;
   }
 
   /* Porträt */
