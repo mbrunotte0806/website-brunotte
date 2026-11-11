@@ -23,6 +23,9 @@ Options -Indexes
   # Testadresse ausgenommen, damit sich die Seite auf dem Webspace pruefen
   # laesst, ohne die Hauptdomain umzustellen.
   RewriteCond %{HTTP_HOST} !^test\.brunotte\.de$ [NC]
+  # VORUEBERGEHEND: Hauptdomain ohne www ebenfalls ausgenommen, um zu pruefen,
+  # ob STRATO sie aus unserem Verzeichnis ausliefert. Wird danach entfernt.
+  RewriteCond %{HTTP_HOST} !^brunotte\.de$ [NC]
   RewriteCond %{HTTP_HOST} !^$
   RewriteRule ^ https://www.brunotte.de%{REQUEST_URI} [R=301,L]
 </IfModule>
