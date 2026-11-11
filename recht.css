@@ -215,3 +215,52 @@ a.mail:hover { color: var(--accent); }
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
 }
+
+/* ============================================================
+   Druckausgabe. Gilt fuer den Ausdruck im Browser ebenso wie
+   fuer die archivierten PDF-Fassungen dieser Seiten.
+   ============================================================ */
+@media print {
+
+  @page { size: A4; margin: 19mm 18mm; }
+
+  html, body { background: #fff; color: #14241f; }
+  body { font-size: 10.5pt; line-height: 1.5; }
+
+  /* Navigation und Fusszeile gehoeren nicht in ein Dokument */
+  .site-header, .site-footer { display: none; }
+
+  .recht { padding: 0; }
+  .wrap { width: auto; margin: 0; }
+
+  /* Im Druck darf der Text die volle Breite nutzen */
+  .recht p, .recht ul, .recht .vorspann, .kasten { max-width: none; }
+
+  .recht h1 { font-size: 21pt; margin-bottom: 4mm; }
+  .recht .vorspann { font-size: 11pt; margin-bottom: 7mm; }
+  .recht h2 { font-size: 13pt; margin: 7mm 0 1.5mm; padding-top: 3mm; }
+  .recht h3 { font-size: 10.5pt; margin: 4mm 0 1mm; }
+
+  /* Ueberschriften nicht allein am Seitenende stehen lassen */
+  h1, h2, h3 { break-after: avoid; }
+  .anschrift, .kasten, .recht ul { break-inside: avoid; }
+
+  /* Der gruene Kasten bleibt, aber dezenter */
+  .kasten {
+    background: #f2f7f5;
+    border-left: 2pt solid #206d56;
+    padding: 3mm 4mm;
+  }
+
+  /* Gedruckte Verweise brauchen ihre Adresse, sonst sind sie wertlos.
+     Interne Verweise und E-Mail-Adressen bleiben unangetastet. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #3d5c53;
+    word-break: break-all;
+  }
+  a { color: #14241f; text-decoration: underline; }
+
+  .stand { margin-top: 8mm; font-size: 9.5pt; }
+}
