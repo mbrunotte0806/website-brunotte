@@ -37,6 +37,7 @@ on:
         options:
           - auflisten
           - hochladen
+          - aufraeumen
   # push:
   #   branches: [main]
 
@@ -130,6 +131,42 @@ jobs:
             cd '$DEST'; cls -l --sort=name;
           "
 
+
+      # ----------------------------------------------------------
+      #  Einmaliges Aufraeumen: entfernt den doppelten Dateisatz aus
+      #  dem Wurzelverzeichnis, der beim ersten Umzugsversuch dort
+      #  gelandet ist. Namentlich aufgefuehrt, kein Platzhalter.
+      #  Es bleiben: cgi-bin/ (von STRATO), brunotte.de/ (die Seite)
+      #  und die .htaccess (leitet die Paketadresse auf die Seite um).
+      # ----------------------------------------------------------
+      - name: Wurzelverzeichnis aufraeumen
+        if: ${{ inputs.modus == 'aufraeumen' }}
+        env:
+          HOST: ${{ secrets.STRATO_HOST }}
+          USER: ${{ secrets.STRATO_USER }}
+          PASS: ${{ secrets.STRATO_PASS }}
+        run: |
+          lftp -c "
+            set sftp:auto-confirm yes;
+            open -u '$USER','$PASS' sftp://$HOST;
+            cd /;
+            rm -f 'index.html' || echo 'nicht vorhanden: index.html';
+            rm -f 'impressum.html' || echo 'nicht vorhanden: impressum.html';
+            rm -f 'datenschutz.html' || echo 'nicht vorhanden: datenschutz.html';
+            rm -f 'recht.css' || echo 'nicht vorhanden: recht.css';
+            rm -f 'portrait.jpg' || echo 'nicht vorhanden: portrait.jpg';
+            rm -f 'portrait-600.jpg' || echo 'nicht vorhanden: portrait-600.jpg';
+            rm -f 'favicon.ico' || echo 'nicht vorhanden: favicon.ico';
+            rm -f 'favicon-16.png' || echo 'nicht vorhanden: favicon-16.png';
+            rm -f 'favicon-32.png' || echo 'nicht vorhanden: favicon-32.png';
+            rm -f 'icon-192.png' || echo 'nicht vorhanden: icon-192.png';
+            rm -f 'icon-512.png' || echo 'nicht vorhanden: icon-512.png';
+            rm -f 'apple-touch-icon.png' || echo 'nicht vorhanden: apple-touch-icon.png';
+            rm -rf 'fonts' || echo 'fonts nicht vorhanden';
+            echo;
+            echo '--- Wurzelverzeichnis danach ---';
+            cls -l --sort=name;
+          "
       - name: Erreichbarkeit der oeffentlichen Seite
         if: ${{ inputs.modus == 'hochladen' }}
         run: |
