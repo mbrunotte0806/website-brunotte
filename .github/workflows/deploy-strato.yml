@@ -1,17 +1,22 @@
 # ============================================================
 #  Veroeffentlichung auf den STRATO-Webspace per SFTP.
 #
-#  Vorerst nur manuell ausloesbar (workflow_dispatch), damit ein
-#  fehlender Zugangsdatensatz keine Fehlermeldungen bei jedem Push
-#  erzeugt. Sobald ein Durchlauf sauber war, wird der Ausloeser
-#  "push" aktiviert - dann ist der Ablauf wie bisher bei Vercel.
+#  Zwei Betriebsarten, auswaehlbar beim manuellen Start:
+#    auflisten  - verbindet sich und zeigt nur, was auf dem Server
+#                 liegt. Aendert nichts. Dient dazu, das richtige
+#                 Zielverzeichnis zu finden.
+#    hochladen  - spiegelt das Repository in das Zielverzeichnis.
 #
-#  Benoetigte Secrets im GitHub-Repository
-#  (Settings -> Secrets and variables -> Actions -> New secret):
-#    STRATO_HOST  - z. B. ssh.strato.de
-#    STRATO_USER  - der SFTP-Benutzername aus dem STRATO-Kundenbereich
-#    STRATO_PASS  - das zugehoerige Passwort
-#    STRATO_PATH  - Zielverzeichnis auf dem Webspace, z. B. / oder /brunotte.de
+#  Vorerst nur manuell ausloesbar, damit ein fehlender Zugangsdatensatz
+#  keine Fehlermeldungen bei jedem Push erzeugt. Sobald ein Durchlauf
+#  sauber war, wird der Ausloeser "push" aktiviert.
+#
+#  Benoetigte Secrets (Settings -> Secrets and variables -> Actions):
+#    STRATO_HOST  51800476.ssh.w1.strato.hosting
+#    STRATO_USER  stu447977203
+#    STRATO_PASS  eigenes Passwort des SFTP-Benutzers,
+#                 NICHT das Passwort des STRATO-Kundenkontos
+#    STRATO_PATH  Zielverzeichnis, zunaechst /
 #
 #  Die Zugangsdaten gehoeren ausschliesslich in diese Secrets -
 #  niemals in eine Datei im Repository.
@@ -21,6 +26,15 @@ name: Auf STRATO veroeffentlichen
 
 on:
   workflow_dispatch:
+    inputs:
+      modus:
+        description: "Was soll passieren?"
+        required: true
+        default: auflisten
+        type: choice
+        options:
+          - auflisten
+          - hochladen
   # push:
   #   branches: [main]
 
@@ -38,21 +52,58 @@ jobs:
       - name: lftp installieren
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Dateien hochladen
+      - name: Zugangsdaten pruefen
         env:
           HOST: ${{ secrets.STRATO_HOST }}
           USER: ${{ secrets.STRATO_USER }}
           PASS: ${{ secrets.STRATO_PASS }}
           DEST: ${{ secrets.STRATO_PATH }}
         run: |
-          set -euo pipefail
-          test -n "$HOST" && test -n "$USER" && test -n "$PASS" && test -n "$DEST"
+          fehlt=""
+          [ -n "$HOST" ] || fehlt="$fehlt STRATO_HOST"
+          [ -n "$USER" ] || fehlt="$fehlt STRATO_USER"
+          [ -n "$PASS" ] || fehlt="$fehlt STRATO_PASS"
+          [ -n "$DEST" ] || fehlt="$fehlt STRATO_PATH"
+          if [ -n "$fehlt" ]; then
+            echo "Fehlende Secrets:$fehlt"
+            exit 1
+          fi
+          echo "Alle vier Secrets sind gesetzt."
 
-          # mirror -R spiegelt das Arbeitsverzeichnis auf den Server.
-          # --delete ist bewusst NICHT gesetzt: Beim ersten Lauf soll
-          # nichts auf dem Webspace geloescht werden. Erst wenn feststeht,
-          # dass das Zielverzeichnis allein dieser Seite gehoert, kann es
-          # ergaenzt werden.
+      # ----------------------------------------------------------
+      #  Nur nachsehen. Aendert nichts auf dem Server.
+      # ----------------------------------------------------------
+      - name: Verzeichnisse auflisten
+        if: ${{ inputs.modus == 'auflisten' }}
+        env:
+          HOST: ${{ secrets.STRATO_HOST }}
+          USER: ${{ secrets.STRATO_USER }}
+          PASS: ${{ secrets.STRATO_PASS }}
+          DEST: ${{ secrets.STRATO_PATH }}
+        run: |
+          lftp -c "
+            set sftp:auto-confirm yes;
+            set net:timeout 20;
+            open -u '$USER','$PASS' sftp://$HOST;
+            echo '--- Startverzeichnis ---';
+            cd /; cls -l --sort=name;
+            echo;
+            echo '--- Zielverzeichnis $DEST ---';
+            cd '$DEST'; cls -l --sort=name;
+          "
+
+      # ----------------------------------------------------------
+      #  Hochladen. Loescht nichts: Dateien, die auf dem Server
+      #  liegen und nicht im Repository stehen, bleiben unberuehrt.
+      # ----------------------------------------------------------
+      - name: Dateien hochladen
+        if: ${{ inputs.modus == 'hochladen' }}
+        env:
+          HOST: ${{ secrets.STRATO_HOST }}
+          USER: ${{ secrets.STRATO_USER }}
+          PASS: ${{ secrets.STRATO_PASS }}
+          DEST: ${{ secrets.STRATO_PATH }}
+        run: |
           lftp -c "
             set sftp:auto-confirm yes;
             set net:max-retries 3;
@@ -69,12 +120,17 @@ jobs:
               --exclude-glob notizen/ \
               --exclude-glob mb.jpg \
               ./ '$DEST';
+            echo;
+            echo '--- Inhalt nach dem Hochladen ---';
+            cd '$DEST'; cls -l --sort=name;
           "
 
-      - name: Ergebnis pruefen
+      - name: Erreichbarkeit der oeffentlichen Seite
+        if: ${{ inputs.modus == 'hochladen' }}
         run: |
-          echo "Hochgeladen. Pruefung der veroeffentlichten Seite:"
+          echo "Hinweis: Solange die Domain noch auf Vercel zeigt,"
+          echo "pruefen diese Abrufe die ALTE Seite, nicht den Webspace."
           for p in / /impressum.html /datenschutz.html /recht.css /fonts/hanken-grotesk-400-latin.woff2; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "https://www.brunotte.de$p" || echo "---")
-            printf '%-45s %s\n' "$p" "$code"
+            printf '%-48s %s\n' "$p" "$code"
           done
