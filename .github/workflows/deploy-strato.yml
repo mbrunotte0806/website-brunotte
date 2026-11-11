@@ -16,7 +16,9 @@
 #    STRATO_USER  stu447977203
 #    STRATO_PASS  eigenes Passwort des SFTP-Benutzers,
 #                 NICHT das Passwort des STRATO-Kundenkontos
-#    STRATO_PATH  Zielverzeichnis, zunaechst /
+#  Das Zielverzeichnis ist KEIN Secret - als einzelner Schraegstrich
+#  wuerde GitHub sonst jeden Pfad im Protokoll unkenntlich machen.
+#  Abweichung ueber die Repository-Variable STRATO_PATH moeglich.
 #
 #  Die Zugangsdaten gehoeren ausschliesslich in diese Secrets -
 #  niemals in eine Datei im Repository.
@@ -57,18 +59,17 @@ jobs:
           HOST: ${{ secrets.STRATO_HOST }}
           USER: ${{ secrets.STRATO_USER }}
           PASS: ${{ secrets.STRATO_PASS }}
-          DEST: ${{ secrets.STRATO_PATH }}
+          DEST: ${{ vars.STRATO_PATH || '/' }}
         run: |
           fehlt=""
           [ -n "$HOST" ] || fehlt="$fehlt STRATO_HOST"
           [ -n "$USER" ] || fehlt="$fehlt STRATO_USER"
           [ -n "$PASS" ] || fehlt="$fehlt STRATO_PASS"
-          [ -n "$DEST" ] || fehlt="$fehlt STRATO_PATH"
           if [ -n "$fehlt" ]; then
             echo "Fehlende Secrets:$fehlt"
             exit 1
           fi
-          echo "Alle vier Secrets sind gesetzt."
+          echo "Zugangsdaten vollstaendig. Zielverzeichnis: $DEST"
 
       # ----------------------------------------------------------
       #  Nur nachsehen. Aendert nichts auf dem Server.
@@ -79,7 +80,7 @@ jobs:
           HOST: ${{ secrets.STRATO_HOST }}
           USER: ${{ secrets.STRATO_USER }}
           PASS: ${{ secrets.STRATO_PASS }}
-          DEST: ${{ secrets.STRATO_PATH }}
+          DEST: ${{ vars.STRATO_PATH || '/' }}
         run: |
           lftp -c "
             set sftp:auto-confirm yes;
@@ -102,7 +103,7 @@ jobs:
           HOST: ${{ secrets.STRATO_HOST }}
           USER: ${{ secrets.STRATO_USER }}
           PASS: ${{ secrets.STRATO_PASS }}
-          DEST: ${{ secrets.STRATO_PATH }}
+          DEST: ${{ vars.STRATO_PATH || '/' }}
         run: |
           lftp -c "
             set sftp:auto-confirm yes;
@@ -120,6 +121,9 @@ jobs:
               --exclude-glob notizen/ \
               --exclude-glob mb.jpg \
               ./ '$DEST';
+            echo;
+            echo '--- Platzhalter von STRATO entfernen ---';
+            rm -f '$DEST/index.htm' || echo 'index.htm war nicht vorhanden';
             echo;
             echo '--- Inhalt nach dem Hochladen ---';
             cd '$DEST'; cls -l --sort=name;
