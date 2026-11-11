@@ -59,7 +59,7 @@ jobs:
           HOST: ${{ secrets.STRATO_HOST }}
           USER: ${{ secrets.STRATO_USER }}
           PASS: ${{ secrets.STRATO_PASS }}
-          DEST: ${{ vars.STRATO_PATH || '/' }}
+          DEST: ${{ vars.STRATO_PATH || '/brunotte.de' }}
         run: |
           fehlt=""
           [ -n "$HOST" ] || fehlt="$fehlt STRATO_HOST"
@@ -80,7 +80,7 @@ jobs:
           HOST: ${{ secrets.STRATO_HOST }}
           USER: ${{ secrets.STRATO_USER }}
           PASS: ${{ secrets.STRATO_PASS }}
-          DEST: ${{ vars.STRATO_PATH || '/' }}
+          DEST: ${{ vars.STRATO_PATH || '/brunotte.de' }}
         run: |
           lftp -c "
             set sftp:auto-confirm yes;
@@ -103,13 +103,14 @@ jobs:
           HOST: ${{ secrets.STRATO_HOST }}
           USER: ${{ secrets.STRATO_USER }}
           PASS: ${{ secrets.STRATO_PASS }}
-          DEST: ${{ vars.STRATO_PATH || '/' }}
+          DEST: ${{ vars.STRATO_PATH || '/brunotte.de' }}
         run: |
           lftp -c "
             set sftp:auto-confirm yes;
             set net:max-retries 3;
             set net:timeout 20;
             open -u '$USER','$PASS' sftp://$HOST;
+            mkdir -p '$DEST';
             mirror --reverse --verbose --parallel=4 \
               --exclude-glob .git/ \
               --exclude-glob .github/ \
