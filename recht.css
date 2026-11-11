@@ -237,8 +237,8 @@ a.mail:hover { color: var(--accent); }
   .recht p, .recht ul, .recht .vorspann, .kasten { max-width: none; }
 
   .recht h1 { font-size: 21pt; margin-bottom: 4mm; }
-  .recht .vorspann { font-size: 11pt; margin-bottom: 7mm; }
-  .recht h2 { font-size: 13pt; margin: 7mm 0 1.5mm; padding-top: 3mm; }
+  .recht .vorspann { font-size: 11pt; margin-bottom: 5mm; }
+  .recht h2 { font-size: 13pt; margin: 5mm 0 1.5mm; padding-top: 2.5mm; }
   .recht h3 { font-size: 10.5pt; margin: 4mm 0 1mm; }
 
   /* Ueberschriften nicht allein am Seitenende stehen lassen */
@@ -258,9 +258,9 @@ a.mail:hover { color: var(--accent); }
     content: " (" attr(href) ")";
     font-size: 9pt;
     color: #3d5c53;
-    word-break: break-all;
+    white-space: nowrap;
   }
   a { color: #14241f; text-decoration: underline; }
 
-  .stand { margin-top: 8mm; font-size: 9.5pt; }
+  .stand { margin-top: 6mm; font-size: 9.5pt; break-before: avoid; }
 }

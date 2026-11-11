@@ -12,3 +12,6 @@ entwurf.html
 # Interne Dokumente - duerfen nicht auf die Website
 stakeholder-analyse.html
 stakeholder-analyse.pdf
+
+# Erzeugte Dokumente - gehoeren nicht auf die Website
+dokumente/
