@@ -20,6 +20,9 @@ Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTP_HOST} !^www\.brunotte\.de$ [NC]
+  # Testadresse ausgenommen, damit sich die Seite auf dem Webspace pruefen
+  # laesst, ohne die Hauptdomain umzustellen.
+  RewriteCond %{HTTP_HOST} !^test\.brunotte\.de$ [NC]
   RewriteCond %{HTTP_HOST} !^$
   RewriteRule ^ https://www.brunotte.de%{REQUEST_URI} [R=301,L]
 </IfModule>
@@ -28,6 +31,11 @@ Options -Indexes
 #  Zwischenspeicherung im Browser
 # ------------------------------------------------------------
 <IfModule mod_headers.c>
+
+  # Die Testadresse darf nicht in Suchmaschinen landen - sonst steht die
+  # Seite doppelt im Netz.
+  SetEnvIf Host ^test\. IST_TEST
+  Header set X-Robots-Tag "noindex, nofollow" env=IST_TEST
 
   # Schriften aendern sich praktisch nie: ein Jahr, ohne Rueckfrage.
   # Wird eine Schrift je ausgetauscht, muss der Dateiname mitgeaendert
